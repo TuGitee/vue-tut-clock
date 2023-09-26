@@ -3,6 +3,8 @@
     <p><time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time></p>
     <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
 
+    <FlipClock theme="dark"></FlipClock>
+
     <CircleClock size="fit" :step="false">
       <template #header>
         <h1>Circle Clock Demo</h1>

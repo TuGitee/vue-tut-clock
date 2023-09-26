@@ -1,11 +1,14 @@
 <template>
-    <div class="clock-box" :class="{ center }">
-        <slot name="header"></slot>
-        <div class="clock" :style="[{
-            transform: `translate(${offsetX}px,${offsetY}px)`,
-            '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
-            '-moz-transform': `translate(${offsetX}px,${offsetY}px)`
-        }, clockSize, clockTheme]">
+    <div class="clock-box" :class="{ center }" :style="[{
+        transform: `translate(${offsetX}px,${offsetY}px)`,
+        '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
+        '-moz-transform': `translate(${offsetX}px,${offsetY}px)`
+    }, clockSize, clockTheme]">
+        <header class="header">
+            <slot name="header">
+            </slot>
+        </header>
+        <div class="clock">
             <div class="hour" :style="{
                 transform: `rotate(${hh}deg)`
             }"></div>
@@ -16,8 +19,10 @@
                 transform: `rotate(${ss}deg)`
             }"></div>
         </div>
-        <slot name="footer">
-        </slot>
+        <footer class="footer">
+            <slot name="footer">
+            </slot>
+        </footer>
     </div>
 </template>
 
@@ -146,7 +151,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10px;
+    gap: calc(var(--size)*0.1);
     align-items: center;
     position: relative;
     transition: all ease 0.2s;
@@ -164,6 +169,11 @@ export default {
 [data-theme="dark"] .clock-box {
     --text-color: #888;
     --border-color: #111;
+}
+
+.header,
+.footer {
+    margin: calc(var(--size)*0.1) 0;
 }
 
 .clock {

@@ -1,14 +1,15 @@
 <template>
-    <div class="clock-box" :class="{ center }">
-        <slot name="header">
-            <h1>翻页时钟</h1>
-        </slot>
-        <div class="clock" ref="clock" :style="[{
-            transform: `translate(${offsetX}px,${offsetY}px)`,
-            '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
-            '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
-            'flex-wrap': wrap ? 'wrap' : 'nowrap'
-        }, clockSize, clockTheme]">
+    <div class="clock-box" :class="{ center }" :style="[{
+        transform: `translate(${offsetX}px,${offsetY}px)`,
+        '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
+        '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
+        'flex-wrap': wrap ? 'wrap' : 'nowrap'
+    }, clockSize, clockTheme]">
+        <header class="header">
+            <slot name="header">
+            </slot>
+        </header>
+        <div class="clock" ref="clock">
             <div class="contents" v-for="i in formatter">
                 <div class="flip down" v-if="isKey(i)">
                     <div class="digital front number0"></div>
@@ -17,7 +18,11 @@
                 <em v-else>{{ i.replace(' ', '&nbsp;') }}</em>
             </div>
         </div>
-        <slot name="footer"></slot>
+
+        <footer class="footer">
+            <slot name="footer">
+            </slot>
+        </footer>
     </div>
 </template>
 
@@ -246,9 +251,18 @@ export default {
     font-size: 3vmin;
     color: #888;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+
+    --bg: #333;
+    --font: #fff;
 }
 
-[data-theme="dark"] .clock {
+.clock {
+    display: flex;
+    gap: calc(var(--size)*0.1);
+    padding: 0 calc(var(--size)*0.2);
+}
+
+[data-theme="dark"] .clock-box {
     --bg: #fff;
     --font: #333;
 }
@@ -259,12 +273,9 @@ export default {
     margin: auto;
 }
 
-.clock {
-    display: flex;
-    gap: calc(var(--size)*0.1);
-    padding: 0 calc(var(--size)*0.2);
-    --bg: #333;
-    --font: #fff;
+.header,
+.footer {
+    margin: calc(var(--size)*0.2) 0;
 }
 
 .clock em {
