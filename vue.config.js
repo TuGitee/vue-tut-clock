@@ -5,6 +5,7 @@ module.exports = defineConfig({
   lintOnSave: false,
   outputDir: 'dist',
   assetsDir: './static',
+  publicPath: './',
   productionSourceMap: false,
   chainWebpack: config => {
     config.resolve.alias.set('~', path.resolve('plugins'))
