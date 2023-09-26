@@ -1,6 +1,6 @@
 {
   "name": "tut-flip-clock",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "private": false,
   "author": "_tut",
   "main": "lib/tut-flip-clock.umd.min.js",
@@ -11,7 +11,8 @@
     "clock",
     "翻页时钟",
     "时钟",
-    "时间"
+    "时间",
+    "vue2"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",

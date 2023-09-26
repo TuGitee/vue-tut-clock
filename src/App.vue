@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-
     <time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time>
+    <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
+
+    <CircleClock size="fit" :step="false"></CircleClock>
 
     <!-- 展示韩国时钟 -->
     <template>
@@ -52,7 +54,7 @@ export default {
           size: 'small'
         }, {
           formatter: 'HH:II:SS',
-          size: 'fit'
+          size: 'middle'
         }]
       }
     }
@@ -66,7 +68,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin: 60px auto;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 </style>

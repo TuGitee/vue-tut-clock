@@ -4,3 +4,4 @@ babel.config.js
 *.map
 src/
 dist/
+public/

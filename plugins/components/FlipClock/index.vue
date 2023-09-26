@@ -1,10 +1,13 @@
 <template>
     <div class="outer" :class="{ center }">
-        <slot name="header"></slot>
+        <slot name="header">
+            <h1>翻页时钟</h1>
+        </slot>
         <div class="clock" ref="clock" :style="[{
             transform: `translate(${offsetX}px,${offsetY}px)`,
             '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
             '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
+            'flex-wrap': wrap ? 'wrap' : 'nowrap'
         }, clockSize, clockTheme]">
             <div class="box" v-for="i in formatter">
                 <div class="flip down" v-if="isKey(i)">
@@ -50,7 +53,7 @@ export default {
         },
         theme: {
             type: String,
-            default: 'dark',
+            default: 'auto',
             validator(val) {
                 return val.trim()
             }
@@ -61,8 +64,17 @@ export default {
             validator(val) {
                 return val <= 12 && val >= -12
             }
+        },
+        wrap: {
+            type: Boolean,
+            default: true,
         }
 
+    },
+    data() {
+        return {
+            timer: null
+        }
     },
     mounted() {
         function Flipper(config) {
@@ -132,10 +144,12 @@ export default {
                 nextTimeStr
             }
         }
+
         const clock = this.$refs.clock
         const flips = clock.querySelectorAll('.flip')
         const { nowTimeStr, nextTimeStr } = getTime()
         let flipObjs = []
+
         for (let i = 0; i < flips.length; i++) {
             flipObjs.push(new Flipper({
                 node: flips[i],
@@ -144,7 +158,7 @@ export default {
             }))
         }
 
-        setInterval(() => {
+        this.timer = setInterval(() => {
             const { nowTimeStr, nextTimeStr } = getTime()
             for (let i = 0; i < flipObjs.length; i++) {
                 if (nowTimeStr[i] === nextTimeStr[i]) {
@@ -154,6 +168,10 @@ export default {
             }
         }, 1000)
 
+    },
+    beforeDestroy() {
+        clearInterval(this.timer)
+        this.timer = null
     },
     methods: {
         isKey(str) {
@@ -168,19 +186,22 @@ export default {
             const style = {}
             switch (this.size) {
                 case 'large':
-                    style['--size'] = `300px`
+                    style['--size'] = `150px`
                     break
                 case 'middle':
-                    style['--size'] = `200px`
+                    style['--size'] = `80px`
                     break
                 case 'small':
-                    style['--size'] = `100px`
+                    style['--size'] = `50px`
                     break
                 case 'fit':
                     style['--size'] = `max(${100 / this.formatter.length}vw,${100 / this.formatter.length}vmin)`
                     break
                 default:
-                    style['--size'] = `${this.size}px`
+                    if (this.size.includes('%'))
+                        style['--size'] = `${this.size}`
+                    else
+                        style['--size'] = `${this.size}px`
             }
             return style
         },
@@ -194,6 +215,8 @@ export default {
                 case 'light':
                     style['--bg'] = '#fff'
                     style['--font'] = '#333'
+                    break
+                case 'auto':
                     break
                 default:
                     style['--bg'] = this.theme ? this.theme : '#333'
@@ -209,7 +232,6 @@ export default {
 </script>
 
 <style scoped>
-
 .outer {
     text-align: center;
     display: flex;
@@ -226,6 +248,11 @@ export default {
     text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
 }
 
+[data-theme="dark"] .clock {
+    --bg: #fff;
+    --font: #333;
+}
+
 .outer.center {
     inset: 0;
     position: absolute;
@@ -235,6 +262,9 @@ export default {
 .clock {
     display: flex;
     gap: calc(var(--size)*0.1);
+    padding: 0 calc(var(--size)*0.2);
+    --bg: #333;
+    --font: #fff;
 }
 
 .clock em {
@@ -258,7 +288,6 @@ export default {
     height: var(--size);
     line-height: var(--size);
     border-radius: 10%;
-    background: var(--font);
     font-size: calc(var(--size)*0.888);
     color: var(--font);
     box-shadow: 0 0 calc(var(--size)*0.05) var(--bg);
@@ -386,7 +415,6 @@ export default {
 .flip.down.go .front:before {
     transform-origin: 50% 100%;
     animation: frontFlipDown 0.6s ease-in-out both;
-    box-shadow: 0 -2px calc(var(--size)*0.05) rgba(255, 255, 255, 0.3);
     backface-visibility: hidden;
 }
 
@@ -420,6 +448,10 @@ export default {
         transform: perspective(calc(var(--size)*1.5)) rotateX(180deg);
     }
 
+    50% {
+        filter: brightness(.8);
+    }
+
     100% {
         filter: brightness(1);
         transform: perspective(calc(var(--size)*1.5)) rotateX(0deg);
@@ -449,7 +481,6 @@ export default {
 .flip.up.go .front:after {
     transform-origin: 50% 0;
     animation: frontFlipUp 0.6s ease-in-out both;
-    box-shadow: 0 2px calc(var(--size)*0.05) rgba(255, 255, 255, 0.3);
     backface-visibility: hidden;
 }
 
