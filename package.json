@@ -1,6 +1,6 @@
 {
   "name": "tut-flip-clock",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "private": false,
   "author": "_tut",
   "main": "lib/tut-flip-clock.umd.min.js",

@@ -186,7 +186,7 @@ export default {
             this.setTime()
             const { nowTimeStr, nextTimeStr } = this.getTime()
             for (let i = 0; i < flipObjs.length; i++) {
-                if (this.pre.nowTimeStr[i] === nowTimeStr[i] && this.pre.nextTimeStr[i] === nextTimeStr[i] && nowTimeStr[i] === nextTimeStr[i]) {
+                if ((this.pre.nowTimeStr[i] === nowTimeStr[i] || this.pre.nextTimeStr[i] === nextTimeStr[i]) && nowTimeStr[i] === nextTimeStr[i]) {
                     continue
                 }
                 this.deadline ?
