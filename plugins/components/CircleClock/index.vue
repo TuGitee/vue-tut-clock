@@ -1,5 +1,5 @@
 <template>
-    <div class="box" :class="{ center }">
+    <div class="clock-box" :class="{ center }">
         <slot name="header"></slot>
         <div class="clock" :style="[{
             transform: `translate(${offsetX}px,${offsetY}px)`,
@@ -141,11 +141,12 @@ export default {
 </script>
 
 <style scoped>
-.box {
+.clock-box {
     margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px;
     align-items: center;
     position: relative;
     transition: all ease 0.2s;
@@ -153,14 +154,14 @@ export default {
     --border-color: #fff;
 }
 
-.box.center {
+.clock-box.center {
     inset: 0;
     position: absolute;
     margin: auto;
     height: fit-content;
 }
 
-[data-theme="dark"] .box {
+[data-theme="dark"] .clock-box {
     --text-color: #888;
     --border-color: #111;
 }

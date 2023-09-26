@@ -1,33 +1,38 @@
 <template>
   <div id="app">
-    <time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time>
+    <p><time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time></p>
     <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
 
-    <CircleClock size="fit" :step="false"></CircleClock>
+    <CircleClock size="fit" :step="false">
+      <template #header>
+        <h1>Circle Clock Demo</h1>
+      </template>
+    </CircleClock>
 
     <!-- 展示韩国时钟 -->
-    <template>
-      <FlipClock :GMT="9">
-        <template #header>
-          <h1>South Korea Clock</h1>
-        </template>
-        <template #footer>
-          <p>🕓 TIME 🕓</p>
-        </template>
-      </FlipClock>
-    </template>
+    <FlipClock :GMT="9">
+      <template #header>
+        <h1>South Korea Clock Demo</h1>
+      </template>
+      <template #footer>
+        <p>🕓 TIME 🕓</p>
+      </template>
+    </FlipClock>
 
     <FlipClockGroup :config="config">
+      <template #header>
+        <h2>FlipClockGroup Demo</h2>
+      </template>
 
       <template #header:0>
-        <h1>年/月/日</h1>
+        <h3>年/月/日</h3>
       </template>
       <template #footer:0>
         <p>日期仅供参考</p>
       </template>
 
       <template #header:1>
-        <h1>时/分/秒</h1>
+        <h3>时/分/秒</h3>
       </template>
       <template #footer:1>
         <p>时间仅供参考</p>
@@ -35,7 +40,7 @@
 
     </FlipClockGroup>
 
-    <time datetime="2023-1-7 12:03:22">{{ $time(date, 'YYYY年MM月DD日') }}</time>
+    <p><time datetime="2023-1-7 12:03:22">{{ $time(date, 'YYYY年MM月DD日') }}</time></p>
   </div>
 </template>
 
@@ -54,7 +59,6 @@ export default {
           size: 'small'
         }, {
           formatter: 'HH:II:SS',
-          size: 'middle'
         }]
       }
     }
@@ -73,5 +77,10 @@ export default {
 
 :root[data-theme="dark"] {
   color-scheme: dark;
+}
+
+.clock-group,
+:not(.clock-group .clock-box).clock-box {
+  min-height: 100vh;
 }
 </style>

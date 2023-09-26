@@ -1,6 +1,7 @@
 <template>
     <div class="clock-group" :style="{ gap: `${config.gap}px` }" :class="{ center: config.center }">
-        <FlipClock v-for="(item, index) in clockList" :key="index" v-bind="item">
+        <slot name="header"></slot>
+        <FlipClock class="clock-item" v-for="(item, index) in clockList" :key="index" v-bind="item">
             <template #header>
                 <slot :name="`header:${index}`"></slot>
             </template>
@@ -8,6 +9,7 @@
                 <slot :name="`footer:${index}`"></slot>
             </template>
         </FlipClock>
+        <slot name="footer"></slot>
     </div>
 </template>
 
@@ -47,6 +49,8 @@ export default {
     height: fit-content;
     width: fit-content;
     margin: 0 auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .clock-group.center {

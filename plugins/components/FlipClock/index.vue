@@ -1,5 +1,5 @@
 <template>
-    <div class="outer" :class="{ center }">
+    <div class="clock-box" :class="{ center }">
         <slot name="header">
             <h1>翻页时钟</h1>
         </slot>
@@ -9,7 +9,7 @@
             '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
             'flex-wrap': wrap ? 'wrap' : 'nowrap'
         }, clockSize, clockTheme]">
-            <div class="box" v-for="i in formatter">
+            <div class="contents" v-for="i in formatter">
                 <div class="flip down" v-if="isKey(i)">
                     <div class="digital front number0"></div>
                     <div class="digital back number1"></div>
@@ -195,7 +195,7 @@ export default {
                     style['--size'] = `50px`
                     break
                 case 'fit':
-                    style['--size'] = `max(${100 / this.formatter.length}vw,${100 / this.formatter.length}vmin)`
+                    style['--size'] = `max(${100 / (this.formatter.length + 2)}vw,${100 / (this.formatter.length + 2)}vmin)`
                     break
                 default:
                     if (this.size.includes('%'))
@@ -232,7 +232,7 @@ export default {
 </script>
 
 <style scoped>
-.outer {
+.clock-box {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -253,7 +253,7 @@ export default {
     --font: #333;
 }
 
-.outer.center {
+.clock-box.center {
     inset: 0;
     position: absolute;
     margin: auto;
@@ -277,7 +277,7 @@ export default {
     -webkit-user-drag: none;
 }
 
-.box {
+.contents {
     display: contents;
 }
 
