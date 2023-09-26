@@ -1,9 +1,19 @@
 <template>
   <div id="app">
+
+    <FlipClock ref="clock" theme="dark" deadline="2023-11-27" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"
+      event="CVPR截稿">
+    </FlipClock>
+
     <p><time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time></p>
     <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
 
-    <FlipClock theme="dark"></FlipClock>
+    <p style="margin: 40vh auto;">
+      <input type="datetime-local" v-model="time" />
+      <FlipClock ref="clock" style="min-height: 0;" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline"
+        formatter="DD天 hh:ii:ss">
+      </FlipClock>
+    </p>
 
     <CircleClock size="fit" :step="false">
       <template #header>
@@ -62,9 +72,15 @@ export default {
         }, {
           formatter: 'HH:II:SS',
         }]
-      }
+      },
+      time: null
     }
-  }
+  },
+  methods: {
+    handlerDeadline() {
+
+    }
+  },
 }
 </script>
 
@@ -74,11 +90,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin: 60px auto;
+  margin-bottom: 60px;
+  color: var(--color);
+}
+
+:root {
+  --color: #ff6969;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
+  --color: #ffff80;
 }
 
 .clock-group,

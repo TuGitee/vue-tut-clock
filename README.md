@@ -43,17 +43,54 @@ Vue.use(TutFlipClock)
 | theme     | String         | auto         | 翻页时钟主题，可选值为dark，light，auto以及任意其他rgba形式或单词形式的颜色，auto模式为适应当前浏览器深色或浅色模式，使用auto模式颜色会根据html根结点自定义属性[data-theme="dark"]或[data-theme="light"]进行自动切换 |
 | GMT       | Number         | 当前所在时区 | 取值范围在-12至12之间                                        |
 | warp      | Boolean        | true         | 横向宽度不足以容纳时钟组件时换行展示                         |
+| deadline  | String\|Date   | ——           | 开启倒计时模式（开启此模式最好重新配置formatter），并指定截止时间 |
+| prevent   | Boolean        | false        | 倒计时模式下是否展示时间到时的默认动画，动画持续时间为2s（不可调整） |
+| event     | String         | 重要事件     | 倒计时事件名称                                               |
+
+#### 事件
+
+| 事件名          | 参数 | 返回值 | 说明                           |
+| --------------- | ---- | ------ | ------------------------------ |
+| handlerDeadline | void | void   | 当Deadline到达时，执行回调函数 |
 
 #### 示例
 
 ```vue
+<!-- GMT-4时区 -->
 <template>
 	<FlipClock formatter="HH时II分SS秒"
-			   size="fit"
-			   center
-			   :GMT="-4">
+				size="fit"
+				center
+				:GMT="-4">
 	</FlipClock>
 </template>
+
+<!-- 倒计时模式 -->
+<template>
+	<FlipClock deadline="2023-11-27"
+				@handlerDeadline="handlerDeadline"
+				formatter="DD天 hh:ii:ss"
+				event="CVPR截稿">
+	</FlipClock>
+</template>
+
+<!-- 配合input框修改deadline -->
+<template>
+	<div>
+		<input type="datetime-local" v-model="time" />
+		<FlipClock :deadline="time" formatter="DD天 hh:ii:ss"></FlipClock>
+	</div>
+</template>
+
+<script>
+export default {
+	data(){
+		return {
+			time: null
+		}
+	}
+}
+</script>
 ```
 
 ### 插槽
@@ -73,9 +110,10 @@ Vue.use(TutFlipClock)
 			<h1>China Clock</h1>
 	  	</template>
 	  	<template #footer>
-	   	 	<p>时间仅供参考</p>
+			 	<p>时间仅供参考</p>
 	  	</template>
 	</FlipClock>
+	<!-- 倒计时模式插槽有默认值，重新书写插槽自行定义 -->
 </template>
 ```
 
@@ -89,7 +127,7 @@ Vue.use(TutFlipClock)
 		<h1>South Korea Clock</h1>
 	  	</template>
 	  	<template #footer>
-	   	 	<p>🕓 TIME 🕓</p>
+			 	<p>🕓 TIME 🕓</p>
 	  	</template>
 	</FlipClock>
 </template>
@@ -156,8 +194,8 @@ export default {
 <template>
 	<!-- config 同上，有两个时钟 -->
 	<FlipClockGroup :config="config">
-        
-        <template #header>
+		
+		<template #header>
 			<h2>Demo</h2>
 		</template>
 	  
@@ -227,7 +265,7 @@ tut-flip-clock同时支持圆形时钟。
 			<h1>China Clock</h1>
 	  	</template>
 	  	<template #footer>
-	   	 	<p>时间仅供参考</p>
+			 	<p>时间仅供参考</p>
 	  	</template>
 	</CircleClock>
 </template>
@@ -331,6 +369,7 @@ export default {
 // App.vue
 <style scoped>
 :root[data-theme="dark"] {
+	color-scheme: dark;
 	--color: #888;
 }
 </style>

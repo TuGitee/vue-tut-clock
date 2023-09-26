@@ -1,5 +1,5 @@
 <template>
-    <div class="clock-box" :class="{ center }" :style="[{
+    <div class="clock-box" :class="{ center, active }" :style="[{
         transform: `translate(${offsetX}px,${offsetY}px)`,
         '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
         '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
@@ -7,6 +7,8 @@
     }, clockSize, clockTheme]">
         <header class="header">
             <slot name="header">
+                <h2 v-if="deadline" v-html="missMessage"></h2>
+                <p v-if="deadline">今日 {{ $time(void (0), 'YYYY-MM-DD') }}</p>
             </slot>
         </header>
         <div class="clock" ref="clock">
@@ -21,12 +23,14 @@
 
         <footer class="footer">
             <slot name="footer">
+                <p v-if="deadline">到达日 {{ $time(deadline) }}</p>
             </slot>
         </footer>
     </div>
 </template>
 
 <script>
+import { getTimeGap } from '../../utils/time'
 export default {
     name: 'FlipClock',
     props: {
@@ -73,13 +77,35 @@ export default {
         wrap: {
             type: Boolean,
             default: true,
+        },
+        deadline: {
+            type: String,
+            validator(val) {
+                return new Date(val) != 'Invalid Date'
+            }
+        },
+        prevent: {
+            type: Boolean,
+            default: false,
+        },
+        event: {
+            type: String,
+            default: "重要事件",
         }
-
     },
     data() {
         return {
-            timer: null
+            timer: null,
+            date: null,
+            active: false,
+            pre: {
+                nowTimeStr: '',
+                nextTimeStr: ''
+            }
         }
+    },
+    beforeMount() {
+        this.setTime()
     },
     mounted() {
         function Flipper(config) {
@@ -140,19 +166,12 @@ export default {
             }
         }
 
-        const getTime = () => {
-            const now = new Date((new Date()).getTime() + this.offset * 3600000)
-            const nowTimeStr = this.$time(now, this.showFormatter)
-            const nextTimeStr = this.$time(new Date(now.getTime() + 1000), this.showFormatter)
-            return {
-                nowTimeStr,
-                nextTimeStr
-            }
-        }
-
         const clock = this.$refs.clock
         const flips = clock.querySelectorAll('.flip')
-        const { nowTimeStr, nextTimeStr } = getTime()
+        const { nowTimeStr, nextTimeStr } = this.getTime()
+        this.pre.nowTimeStr = nowTimeStr
+        this.pre.nextTimeStr = nextTimeStr
+
         let flipObjs = []
 
         for (let i = 0; i < flips.length; i++) {
@@ -164,13 +183,18 @@ export default {
         }
 
         this.timer = setInterval(() => {
-            const { nowTimeStr, nextTimeStr } = getTime()
+            this.setTime()
+            const { nowTimeStr, nextTimeStr } = this.getTime()
             for (let i = 0; i < flipObjs.length; i++) {
-                if (nowTimeStr[i] === nextTimeStr[i]) {
+                if (this.pre.nowTimeStr[i] === nowTimeStr[i] && this.pre.nextTimeStr[i] === nextTimeStr[i] && nowTimeStr[i] === nextTimeStr[i]) {
                     continue
                 }
-                flipObjs[i].flipDown('number' + nowTimeStr[i], 'number' + nextTimeStr[i])
+                this.deadline ?
+                    flipObjs[i].flipDown('number' + nowTimeStr[i], 'number' + nextTimeStr[i]) :
+                    flipObjs[i].flipDown('number' + nowTimeStr[i], 'number' + nextTimeStr[i])
             }
+            this.pre.nowTimeStr = nowTimeStr
+            this.pre.nextTimeStr = nextTimeStr
         }, 1000)
 
     },
@@ -179,9 +203,33 @@ export default {
         this.timer = null
     },
     methods: {
+        getTimeGap,
         isKey(str) {
             return 'YyMmDdHhIiSs'.includes(str)
         },
+        getTime() {
+            const nowTimeStr = this.deadline ? this.getTimeGap(this.curDate, this.showFormatter) : this.$time(this.curDate, this.showFormatter)
+            const nextTimeStr = this.deadline ? this.getTimeGap(new Date(this.curDate - 1000), this.showFormatter) : this.$time(new Date(this.curDate.getTime() + 1000), this.showFormatter)
+            return {
+                nowTimeStr,
+                nextTimeStr
+            }
+        },
+        setTime() {
+            this.date = this.deadline ? new Date(this.deadline) : new Date()
+        },
+        handlerDeadline() {
+            if (this.active) return;
+            if (!this.prevent) {
+                this.active = true
+                setTimeout(() => {
+                    this.active = false
+                }, 2000)
+            }
+            setTimeout(() => {
+                this.$emit('handlerDeadline')
+            }, 1000)
+        }
     },
     computed: {
         showFormatter() {
@@ -231,12 +279,52 @@ export default {
         },
         offset() {
             return new Date().getTimezoneOffset() / 60 + this.GMT
+        },
+        curDate() {
+            return new Date(this.date.getTime() + this.offset * 3600000)
+        },
+        isMiss() {
+            return this.deadline ? Math.floor((new Date() - this.date) / 1000 + 2) : null
+        },
+        missMessage() {
+            return this.isMiss > 0 ? `<em>${this.event}</em> 距今已过` : this.isMiss == 0 ? `<em>${this.event}</em> 就是现在` : `距离 <em>${this.event}</em> 还有`
+        }
+    },
+    watch: {
+        isMiss: {
+            immediate: false,
+            handler(newVal, oldVal) {
+                if (newVal >= 0 && oldVal <= 0) {
+                    this.handlerDeadline()
+                }
+            }
+        },
+        deadline() {
+            this.setTime()
         }
     }
 }
 </script>
 
 <style scoped>
+@keyframes shake {
+    0% {
+        transform: rotate(0.5deg);
+    }
+
+    50% {
+        transform: rotate(-0.5deg);
+    }
+
+    100% {
+        transform: rotate(0.5deg) scale(1.01);
+    }
+}
+
+.active {
+    animation: shake .2s ease infinite;
+}
+
 .clock-box {
     text-align: center;
     display: flex;
