@@ -227,6 +227,18 @@ export default {
                 }, 2000)
             }
             setTimeout(() => {
+                if (!this.prevent && document.hidden) {
+                    if (window.Notification && Notification.permission !== "granted") {
+                        Notification.requestPermission(function (status) {
+                            if (Notification.permission !== status) {
+                                Notification.permission = status;
+                            }
+                        });
+                    }
+                    new Notification('时间到！', {
+                        body: this.event + '已于' + this.$time(this.deadline) + '截止！',
+                    });
+                }
                 this.$emit('handlerDeadline')
             }, 1000)
         }
@@ -393,6 +405,8 @@ export default {
     text-align: center;
     font-family: "Helvetica Neue";
     font-weight: bold;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .flip .digital:before,
@@ -479,36 +493,41 @@ export default {
 
 .flip.down .front:before {
     z-index: 3;
+    transform: translateZ(0.3px);
 }
 
 .flip.down .back:after {
     z-index: 2;
+    transform: translateZ(0.2px);
 }
 
 .flip.down .front:after,
 .flip.down .back:before {
     z-index: 1;
+    transform: translateZ(0.1px);
 }
 
 .flip.down .back:after {
     z-index: 2;
     transform-origin: 50% 0%;
-    transform: perspective(calc(var(--size)*1.5)) rotateX(180deg);
+    transform: perspective(calc(var(--size)*1.5)) rotateX(180deg) translateZ(0.2px);
 }
 
 .flip.up .front:after {
     z-index: 3;
+    transform: translateZ(0.3px);
 }
 
 .flip.up .back:before {
     z-index: 2;
     transform-origin: 50% 100%;
-    transform: perspective(calc(var(--size)*1.5)) rotateX(-180deg);
+    transform: perspective(calc(var(--size)*1.5)) rotateX(-180deg) translateZ(0.2px);
 }
 
 .flip.up .front:before,
 .flip.up .back:after {
     z-index: 1;
+    transform: translateZ(0.1px);
 }
 
 .flip.down.go .front:before {

@@ -5,7 +5,7 @@
       event="CVPR截稿">
     </FlipClock>
 
-    <p><time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time></p>
+    <p><time datetime="2023-1-7 12:03:22" v-time="Date('2023-1-7 12:03:22')"></time></p>
     <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
 
     <p style="margin: 40vh auto;">
@@ -92,6 +92,7 @@ export default {
   text-align: center;
   margin-bottom: 60px;
   color: var(--color);
+  -webkit-overflow-scrolling: unset;
 }
 
 :root {
