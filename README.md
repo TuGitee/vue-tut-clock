@@ -1,10 +1,12 @@
-# tut-flip-clock [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/limintao/tut-flip-clock/blob/master/LICENSE) [![npm](https://img.shields.io/npm/v/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock) [![npm](https://img.shields.io/npm/dt/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock)
+# tut-flip-clock
+
+[![npm](https://img.shields.io/npm/v/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock) [![npm](https://img.shields.io/npm/dt/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock)![Version](https://img.shields.io/github/package-json/version/TuGitee/tut-flip-clock) ![stars](https://img.shields.io/github/stars/TuGitee/tut-flip-clock) ![forks](https://img.shields.io/github/forks/TuGitee/tut-flip-clock) ![last commit](https://img.shields.io/github/last-commit/TuGitee/tut-flip-clock) ![views](https://komarev.com/ghpvc/?username=TuGitee&label=Views&color=0e75b6&style=flat) ![language](https://img.shields.io/github/languages/top/TuGitee/tut-flip-clock) ![license](https://img.shields.io/github/license/TuGitee/tut-flip-clock)
 
 这是一个翻页时钟，用于展示当前时间！适用于Vue 2 项目！
 
 ## 安装
 
-With NPM:
+使用NPM:
 ```shell
 $ npm install tut-flip-clock
 or
@@ -214,8 +216,14 @@ export default {
 </template>
 ```
 
+## 体验网址
 
+[翻页时钟](https://tugitee.github.io/tut-flip-clock)
 
+## 关于
 
+### 开源协议
+
+Copyright © 2023 [tut-flip-clock](https://github.com/TuGitee/tut-flip-clock/blob/main/LICENSE) (MIT)
 
 > 如存在任何问题，请提交pr或联系作者[_tut](mailto:1137725646@qq.com)。
