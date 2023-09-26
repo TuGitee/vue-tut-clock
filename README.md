@@ -145,6 +145,8 @@ export default {
 
 | 插槽名       | 说明                                                    |
 | ------------ | ------------------------------------------------------- |
+| header       | 时钟组顶部内容                                          |
+| footer       | 时钟组底部内容                                          |
 | header:index | 第[index]个时钟顶部内容，index的取值范围为[0, 时钟数量) |
 | footer:index | 第[index]个时钟底部内容，index的取值范围为[0, 时钟数量) |
 
@@ -154,20 +156,24 @@ export default {
 <template>
 	<!-- config 同上，有两个时钟 -->
 	<FlipClockGroup :config="config">
+        
+        <template #header>
+			<h2>Demo</h2>
+		</template>
 	  
-	  <template #header:0>
-		<h1>年/月/日</h1>
-	  </template>
-	  <template #footer:0>
-		<p>日期仅供参考</p>
-	  </template>
+		<template #header:0>
+			<h3>年/月/日</h3>
+		</template>
+		<template #footer:0>
+			<p>日期仅供参考</p>
+		</template>
 
-	  <template #header:1>
-		<h1>时/分/秒</h1>
-	  </template>
-	  <template #footer:1>
-		<p>时间仅供参考</p>
-	  </template>
+		<template #header:1>
+			<h3>时/分/秒</h3>
+		</template>
+		<template #footer:1>
+			<p>时间仅供参考</p>
+		</template>
 
 	</FlipClockGroup>
 </template>
@@ -279,9 +285,9 @@ export default {
 
 tut-flip-clock 为 Vue.prototype 添加了全局方法 `$switchTheme`,可以直接采用此方法切换主题，使用`theme="auto"`的组件将会跟随主题颜色变化。
 
-| 方法名       | 参数 | 返回值 | 说明     |
-| ------------ | ---- | ------ | -------- |
-| $switchTheme | void | void   | 切换主题 |
+| 方法名       | 参数 | 返回值   | 说明                                        |
+| ------------ | ---- | -------- | ------------------------------------------- |
+| $switchTheme | void | 当前主题 | 切换主题方法，返回值有且仅有dark和light两种 |
 
 #### 示例
 
@@ -293,7 +299,7 @@ tut-flip-clock 为 Vue.prototype 添加了全局方法 `$switchTheme`,可以直�
 <script>
 export default {
 	mounted(){
-		this.$switchTheme()
+		let theme = this.$switchTheme()
 	}
 }
 </script>
