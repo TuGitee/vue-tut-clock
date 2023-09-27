@@ -1,10 +1,10 @@
 import FlipClock from './FlipClock'
-import FlipColckGroup from './FlipClockGroup'
+import ClockGroup from './ClockGroup'
 import CircleClock from './CircleClock'
 
 export default {
     install(Vue) {
-        const componentList = [FlipClock, FlipColckGroup, CircleClock]
+        const componentList = [FlipClock, ClockGroup, CircleClock]
         componentList.forEach((component) => Vue.component(component.name, component))
     }
 }

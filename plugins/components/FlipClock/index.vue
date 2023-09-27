@@ -1,17 +1,17 @@
 <template>
-    <div class="clock-box" :class="{ center, active }" :style="[{
+    <div class="clock-box" ref="clockBox" :class="{ center, active }" :style="[{
         transform: `translate(${offsetX}px,${offsetY}px)`,
         '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
         '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
-        'flex-wrap': wrap ? 'wrap' : 'nowrap'
-    }, clockSize, clockTheme]">
-        <header class="header">
-            <slot name="header">
-                <h2 v-if="deadline" v-html="missMessage"></h2>
-                <p v-if="deadline">今日 {{ $time(void (0), 'YYYY-MM-DD') }}</p>
-            </slot>
-        </header>
-        <div class="clock" ref="clock">
+        '--size': clockSize
+    }, clockTheme]">
+        <slot name="header">
+            <h2 v-if="deadline" v-html="missMessage"></h2>
+            <p v-if="deadline">今日 {{ $time(void (0), 'YYYY-MM-DD') }}</p>
+        </slot>
+        <div class="clock" ref="clock" :style="{
+            'flex-wrap': wrap ? 'wrap' : 'nowrap'
+        }">
             <div class="contents" v-for="i in formatter">
                 <div class="flip down" v-if="isKey(i)">
                     <div class="digital front number0"></div>
@@ -21,11 +21,9 @@
             </div>
         </div>
 
-        <footer class="footer">
-            <slot name="footer">
-                <p v-if="deadline">到达日 {{ $time(deadline) }}</p>
-            </slot>
-        </footer>
+        <slot name="footer">
+            <p v-if="deadline">到达日 {{ $time(deadline) }}</p>
+        </slot>
     </div>
 </template>
 
@@ -101,7 +99,8 @@ export default {
             pre: {
                 nowTimeStr: '',
                 nextTimeStr: ''
-            }
+            },
+            clockSize: null
         }
     },
     beforeMount() {
@@ -197,9 +196,13 @@ export default {
             this.pre.nextTimeStr = nextTimeStr
         }, 1000)
 
+        this.fitSize()
+        window.addEventListener('resize', this.fitSize)
+
     },
     beforeDestroy() {
         clearInterval(this.timer)
+        window.removeEventListener('resize', this.fitSize)
         this.timer = null
     },
     methods: {
@@ -241,34 +244,38 @@ export default {
                 }
                 this.$emit('handlerDeadline')
             }, 1000)
+        },
+        fitSize() {
+            switch (this.size) {
+                case 'large':
+                    this.clockSize = `150px`
+                    break
+                case 'middle':
+                    this.clockSize = `80px`
+                    break
+                case 'small':
+                    this.clockSize = `50px`
+                    break
+                case 'screen':
+                    this.clockSize = `max(${100 / (this.formatter.length )}vw,${100 / (this.formatter.length )}vmin)`
+                    break
+                case 'fit':
+                    this.$nextTick(() => {
+                        const { height, width } = this.$refs.clock.getBoundingClientRect()
+                        this.clockSize = `${width / (this.formatter.length + 4) / 2 * 3}px`
+                    })
+                    break
+                default:
+                    if (this.size.includes('%'))
+                        this.clockSize = `${this.size}`
+                    else
+                        this.clockSize = `${this.size}px`
+            }
         }
     },
     computed: {
         showFormatter() {
             return Array.from(this.formatter).filter(item => this.isKey(item)).join('')
-        },
-        clockSize() {
-            const style = {}
-            switch (this.size) {
-                case 'large':
-                    style['--size'] = `150px`
-                    break
-                case 'middle':
-                    style['--size'] = `80px`
-                    break
-                case 'small':
-                    style['--size'] = `50px`
-                    break
-                case 'fit':
-                    style['--size'] = `max(${100 / (this.formatter.length + 2)}vw,${100 / (this.formatter.length + 2)}vmin)`
-                    break
-                default:
-                    if (this.size.includes('%'))
-                        style['--size'] = `${this.size}`
-                    else
-                        style['--size'] = `${this.size}px`
-            }
-            return style
         },
         clockTheme() {
             const style = {}
@@ -343,14 +350,14 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: calc(var(--size)*0.1);
+    gap: calc(var(--size)*0.2);
     height: fit-content;
     margin: 0 auto;
-    flex-wrap: wrap;
     user-select: none;
-    font-size: 3vmin;
+    font-size: min(3vmin, 20px);
     color: #888;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    height: 100%;
 
     --bg: #333;
     --font: #fff;
@@ -359,7 +366,11 @@ export default {
 .clock {
     display: flex;
     gap: calc(var(--size)*0.1);
-    padding: 0 calc(var(--size)*0.2);
+    padding: calc(var(--size)*0.2);
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 [data-theme="dark"] .clock-box {
@@ -371,11 +382,6 @@ export default {
     inset: 0;
     position: absolute;
     margin: auto;
-}
-
-.header,
-.footer {
-    margin: calc(var(--size)*0.2) 0;
 }
 
 .clock em {

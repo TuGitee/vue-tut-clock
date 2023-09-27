@@ -1,8 +1,8 @@
-# tut-flip-clock
+# :timer_clock: tut-flip-clock
 
 [![npm](https://img.shields.io/npm/v/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock) [![npm](https://img.shields.io/npm/dt/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock) ![Version](https://img.shields.io/github/package-json/version/TuGitee/tut-flip-clock) ![stars](https://img.shields.io/github/stars/TuGitee/tut-flip-clock) ![forks](https://img.shields.io/github/forks/TuGitee/tut-flip-clock) ![last commit](https://img.shields.io/github/last-commit/TuGitee/tut-flip-clock) ![views](https://komarev.com/ghpvc/?username=TuGitee&label=Views&color=0e75b6&style=flat) ![language](https://img.shields.io/github/languages/top/TuGitee/tut-flip-clock) ![license](https://img.shields.io/github/license/TuGitee/tut-flip-clock)
 
-这是一个翻页时钟，用于展示当前时间！适用于Vue 2 项目！
+:clock1: 这是一个翻页时钟，用于展示当前时间！适用于Vue 2 项目！
 
 ## 安装
 
@@ -35,8 +35,8 @@ Vue.use(TutFlipClock)
 
 | 名称      | 类型           | 默认         | 说明                                                         |
 | --------- | -------------- | ------------ | ------------------------------------------------------------ |
-| formatter | String         | hh:ii::ss    | 格式化显示时间格式，可选的字符格式：['YYYY', 'MM', 'DD', 'hh', 'ii', 'ss']，分别对应年、月、日、时、分、秒，不区分大小写，除此外文本可自定义，例如：YYYY年MM月DD日 |
-| size      | Number\|String | fit          | 翻转时钟大小，可选值为large（大号），middle（中号），small（小号），fit（适应屏幕大小），任意数值（单位px） |
+| formatter | String         | hh:ii::ss    | 格式化显示时间格式，可选的字符格式：['YYYY', 'MM', 'DD', 'hh', 'ii', 'ss']，分别对应年、月、日、时、分、秒，不区分大小写，除此外文本可自定义，例如：YYYY年MM月DD日（:warning:倒计时模式下，只可选用日时分秒） |
+| size      | Number\|String | fit          | 翻转时钟大小，可选值为large（大号），middle（中号），small（小号），fit（适应容器大小），screen（适应屏幕大小），任意数值（单位：px） |
 | center    | Boolean        | false        | 使用absolute定位居中，推荐页面中只有此组件为主题内容时配置   |
 | offsetX   | Number         | 0            | X轴偏移量，单位px                                            |
 | offsetY   | Number         | 0            | Y轴偏移量，单位px                                            |
@@ -133,28 +133,87 @@ export default {
 </template>
 ```
 
+### 圆形时钟
+
+tut-flip-clock同时支持圆形时钟。
+
+#### 基本用法
+
+```vue
+<template>
+	<CircleClock></CircleClock>
+</template>
+```
+
+#### 配置参数
+
+| 名称    | 类型           | 默认         | 说明                                                         |
+| ------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GMT     | Number         | 当前所在时区 | 取值范围在-12至12之间                                        |
+| size    | Number\|String | fit          | 圆形时钟大小，可选值为large（大号），middle（中号），small（小号），fit（适应容器大小），screen（适应屏幕大小），任意数值（单位px） |
+| center  | Boolean        | false        | 使用absolute定位居中，推荐页面中只有此组件为主题内容时配置   |
+| offsetX | Number         | 0            | X轴偏移量，单位px                                            |
+| offsetY | Number         | 0            | Y轴偏移量，单位px                                            |
+| theme   | String         | auto         | 圆形时钟主题，可选值为dark，light，auto以及任意其他rgba形式或单词形式的颜色，auto模式为适应当前浏览器深色或浅色模式，使用auto模式颜色会根据html根结点自定义属性[data-theme="dark"]或[data-theme="light"]进行自动切换 |
+| step    | Boolean        | false        | 指针运动方式：步进或连续                                     |
+
+##### 示例
+
+```vue
+<template>
+	<CircleClock size="fit" center :GMT="8" :step="true"></CircleClock>
+</template>
+```
+
+#### 插槽
+
+| 插槽名 | 说明         |
+| ------ | ------------ |
+| header | 时钟顶部内容 |
+| footer | 时钟底部内容 |
+
+##### 示例
+
+```vue
+<template>
+	<CircleClock>
+		<template #header>
+			<h1>China Clock</h1>
+	  	</template>
+	  	<template #footer>
+			 	<p>时间仅供参考</p>
+	  	</template>
+	</CircleClock>
+</template>
+```
+
 ### 时钟组
 
 时钟组的作用主要为换行显示。例如：你想要在页面中使用`FlipClock`组件同时开启center，多个`FlipClock`将重叠在一起（由于absolute定位），此时可以使用时钟组，将整个时钟组居中即可。
 
 ```vue
-<FlipClockGroup></FlipClockGroup>
+<ClockGroup></ClockGroup>
 ```
 
 #### 配置参数
 
-| 名称   | 类型          | 默认                                                         | 说明                                                         |
-| ------ | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| config | Object\|Array | {center: false, gap: 10, clocks: [{ formatter: 'YYYY-MM-DD'},{formatter: 'hh:ii:ss'}]} | 传递对象时可传递center，gap，clocks参数，传递数组时，即只传递clocks对象数组即可，center和gap采用默认值，默认分行显示年月日和时分秒，配置项信息见下 |
-| center | Boolean       | false                                                        | 使用absolute定位居中，推荐页面中只有此组件为主题内容时配置   |
-| gap    | Number        | 10                                                           | 时钟组间距，单位px                                           |
-| clocks | Array         | [{ formatter: 'YYYY-MM-DD'},{formatter: 'hh:ii:ss'}]         | 配置时钟对象，每个时钟的配置参数与[FilpClock配置参数](#配置参数)相似，但不可配置center属性，默认值与之相同 |
+| 名称       | 类型          | 默认                                                         | 说明                                                         |
+| ---------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| config     | Object\|Array | {center: false, gap: 10, clocks: [{ formatter: 'YYYY-MM-DD'},{formatter: 'hh:ii:ss'}]} | 传递对象时可传递center，gap，clocks参数，传递数组时，即只传递clocks对象数组即可，center和gap采用默认值，默认分行显示年月日和时分秒，配置项信息见下 |
+| center     | Boolean       | false                                                        | 使用absolute定位居中，推荐页面中只有此组件为主题内容时配置   |
+| gap        | Number        | 10                                                           | 时钟组间距，单位px                                           |
+| swiper     | Boolean       | false                                                        | 配置时钟组是否开启轮播模式                                   |
+| pagination | Boolean       | false                                                        | 轮播模式下是否显示下方分页小圆点                             |
+| vertical   | Boolean       | false                                                        | 时钟组轮播方式是否垂直                                       |
+| autoplay   | Boolean       | false                                                        | 轮播模式下是否开启自动轮播                                   |
+| duration   | Number        | 5000                                                         | 自动轮播时间（单位：毫秒ms）                                 |
+| clocks     | Array         | [{ formatter: 'YYYY-MM-DD'},{formatter: 'hh:ii:ss'}]         | 配置时钟对象，可指定每个时钟类型type，默认为flip，可选值为flip或circle；每个时钟的配置参数与对应Clock配置参数相似，但不可配置center属性，默认值与之相同 |
 
 #### 示例
 
 ```vue
 <template>
-	<FlipClockGroup :config="config"></FlipClockGroup>
+	<ClockGroup :config="config"></ClockGroup>
 </template>
 
 <script>
@@ -164,6 +223,7 @@ export default {
 			config: {
 				center: false,
 				gap: 20,
+				swiper: true,
 				clocks: [{
 		  			formatter: 'YYYY-MM-DD',
 		  			theme: 'light',
@@ -171,6 +231,9 @@ export default {
 				}, {
 		  			formatter: 'HH:II:SS',
 		  			size: 'fit'
+				}, {
+		  			type: 'circle',
+		  			step: false
 				}]
 	  		}
 		}
@@ -192,8 +255,8 @@ export default {
 
 ```vue
 <template>
-	<!-- config 同上，有两个时钟 -->
-	<FlipClockGroup :config="config">
+	<!-- config 同上，有三个时钟，此处设置前两个时钟的插槽 -->
+	<ClockGroup :config="config">
 		
 		<template #header>
 			<h2>Demo</h2>
@@ -213,61 +276,7 @@ export default {
 			<p>时间仅供参考</p>
 		</template>
 
-	</FlipClockGroup>
-</template>
-```
-
-### 圆形时钟
-
-tut-flip-clock同时支持圆形时钟。
-
-#### 基本用法
-
-```vue
-<template>
-	<CircleClock></CircleClock>
-</template>
-```
-
-#### 配置参数
-
-| 名称    | 类型           | 默认         | 说明                                                         |
-| ------- | -------------- | ------------ | ------------------------------------------------------------ |
-| GMT     | Number         | 当前所在时区 | 取值范围在-12至12之间                                        |
-| size    | Number\|String | fit          | 圆形时钟大小，可选值为large（大号），middle（中号），small（小号），fit（适应屏幕大小），任意数值（单位px） |
-| center  | Boolean        | false        | 使用absolute定位居中，推荐页面中只有此组件为主题内容时配置   |
-| offsetX | Number         | 0            | X轴偏移量，单位px                                            |
-| offsetY | Number         | 0            | Y轴偏移量，单位px                                            |
-| theme   | String         | auto         | 圆形时钟主题，可选值为dark，light，auto以及任意其他rgba形式或单词形式的颜色，auto模式为适应当前浏览器深色或浅色模式，使用auto模式颜色会根据html根结点自定义属性[data-theme="dark"]或[data-theme="light"]进行自动切换 |
-| step    | Boolean        | false        | 指针运动方式：步进或连续                                     |
-
-##### 示例
-
-```vue
-<template>
-	<CircleClock size="fit" center :GMT="8" :step="true"></CircleClock>
-</template>
-```
-
-### 插槽
-
-| 插槽名 | 说明         |
-| ------ | ------------ |
-| header | 时钟顶部内容 |
-| footer | 时钟底部内容 |
-
-#### 示例
-
-```vue
-<template>
-	<CircleClock>
-		<template #header>
-			<h1>China Clock</h1>
-	  	</template>
-	  	<template #footer>
-			 	<p>时间仅供参考</p>
-	  	</template>
-	</CircleClock>
+	</ClockGroup>
 </template>
 ```
 

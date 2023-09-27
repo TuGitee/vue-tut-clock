@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <FlipClock ref="clock" theme="dark" deadline="2023-11-27" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"
+    <FlipClock ref="clock" theme="dark" size="screen" deadline="2023-11-10" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"
       event="CVPR截稿">
     </FlipClock>
 
@@ -9,7 +9,7 @@
     <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
 
     <p style="margin: 40vh auto;">
-      <input type="datetime-local" v-model="time" />
+      <input type="datetime-local" v-model="time" style="margin: 20px auto;" />
       <FlipClock ref="clock" style="min-height: 0;" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline"
         formatter="DD天 hh:ii:ss">
       </FlipClock>
@@ -31,9 +31,9 @@
       </template>
     </FlipClock>
 
-    <FlipClockGroup :config="config">
+    <ClockGroup :config="config">
       <template #header>
-        <h2>FlipClockGroup Demo</h2>
+        <h2>ClockGroup Demo</h2>
       </template>
 
       <template #header:0>
@@ -50,7 +50,14 @@
         <p>时间仅供参考</p>
       </template>
 
-    </FlipClockGroup>
+      <template #header:2>
+        <h3>时钟</h3>
+      </template>
+      <template #footer:2>
+        <p>时间仅供参考</p>
+      </template>
+
+    </ClockGroup>
 
     <p><time datetime="2023-1-7 12:03:22">{{ $time(date, 'YYYY年MM月DD日') }}</time></p>
   </div>
@@ -65,12 +72,17 @@ export default {
       config: {
         center: false,
         gap: 20,
+        swiper: true,
+        pagination: true,
         clocks: [{
           formatter: 'YYYY-MM-DD',
           theme: 'light',
           size: 'small'
         }, {
           formatter: 'HH:II:SS',
+        }, {
+          type: 'circle',
+          step: false
         }]
       },
       time: null
@@ -85,6 +97,9 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -97,6 +112,7 @@ export default {
 
 :root {
   --color: #ff6969;
+  color-scheme: light;
 }
 
 :root[data-theme="dark"] {
@@ -104,8 +120,8 @@ export default {
   --color: #ffff80;
 }
 
-.clock-group,
-:not(.clock-group .clock-box).clock-box {
+.clock-box:not(.clock-group .clock-box) {
   min-height: 100vh;
 }
+
 </style>

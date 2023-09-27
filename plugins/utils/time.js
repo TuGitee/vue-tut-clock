@@ -30,9 +30,7 @@ export function getTimeGap(end, dateFormat = 'DD hh:ii:ss', start = new Date()) 
         }
 
         const duration = endDate - startDate;
-
         const sign = Math.sign(duration)
-
         const positiveDuration = sign * duration
 
         const o = {
@@ -41,7 +39,6 @@ export function getTimeGap(end, dateFormat = 'DD hh:ii:ss', start = new Date()) 
             'i+': Math.floor((positiveDuration / (1000 * 60)) % 60),
             's+': Math.floor((positiveDuration / 1000) % 60)
         };
-
 
         for (const k in o) {
             const reg = new RegExp(`(${k})`, 'i')
