@@ -2,7 +2,6 @@ import { formatTime } from '../utils/time'
 
 export default {
     install(Vue, options) {
-        console.log(options)
         Vue.directive('time', {
             bind(el, binding, vnode) {
                 if (typeof binding.value === 'number') {
