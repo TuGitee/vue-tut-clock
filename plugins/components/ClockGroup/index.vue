@@ -129,7 +129,7 @@ export default {
 
 .swiper-container /deep/ .swiper-wrapper {
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
 }
 
 .swiper-pagination:not(.swiper-container-vertical > .swiper-pagination-bullets) {

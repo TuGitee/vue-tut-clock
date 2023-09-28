@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a style="display: block; color:var(--color); text-decoration: none;margin-top: 60px;"
+    <a style="display: block;width: fit-content; color:var(--color); text-decoration: none;margin: 60px auto;"
       href="https://github.com/TuGitee/vue-tut-clock">
       <h1>vue-tut-clock项目地址</h1>
     </a>
@@ -15,7 +15,7 @@
     <pre
       class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code2)"></code></pre>
 
-    <p><time datetime="2023-1-7 12:03:22" v-time="Date('2023-1-7 12:03:22')"></time></p>
+    <p><time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time></p>
 
     <pre
       class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code3)"></code></pre>
@@ -36,7 +36,7 @@
       class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code5)"></code></pre>
 
 
-    <CircleClock size="fit" :step="false">
+    <CircleClock size="screen" :step="false">
       <template #header>
         <h1>Circle Clock Demo</h1>
       </template>
@@ -84,9 +84,6 @@
       <template #header:2>
         <h3>时钟</h3>
       </template>
-      <template #footer:2>
-        <p>时间仅供参考</p>
-      </template>
 
     </ClockGroup>
 
@@ -126,7 +123,7 @@ export default {
       code3: `<button class="switch-btn" @click="$switchTheme()">主题切换</button>`,
       code4: `<input type="datetime-local" v-model="time" />
 <FlipClock ref="clock" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"></FlipClock>`,
-      code5: `<CircleClock size="fit" :step="false">
+      code5: `<CircleClock size="screen" :step="false">
   <template #header>
     <h1>Circle Clock Demo</h1>
   </template>
@@ -160,9 +157,6 @@ export default {
 
   <template #header:2>
     <h3>时钟</h3>
-  </template>
-  <template #footer:2>
-    <p>时间仅供参考</p>
   </template>
 
 </ClockGroup>`,

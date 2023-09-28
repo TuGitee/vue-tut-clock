@@ -1,5 +1,9 @@
+const SUIT_FOR_IOS = (str) => {
+    return str.includes('T') ? str : str.replace(/-/g, '/')
+}
+
 export function formatTime(date = new Date(), dateFormat = 'YYYY-MM-DD hh:ii:ss') {
-    date = new Date(date)
+    date = typeof date === 'string' ? new Date(SUIT_FOR_IOS(date)) : new Date(date)
     if (isNaN(date.getTime())) {
         throw new Error(date)
     }
@@ -22,8 +26,9 @@ export function formatTime(date = new Date(), dateFormat = 'YYYY-MM-DD hh:ii:ss'
 
 export function getTimeGap(end, dateFormat = 'DD hh:ii:ss', start = new Date()) {
     try {
-        const startDate = new Date(start);
-        const endDate = new Date(end);
+
+        const startDate = typeof start === 'string' ? new Date(SUIT_FOR_IOS(start)) : new Date(start)
+        const endDate = typeof end === 'string' ? new Date(SUIT_FOR_IOS(end)) : new Date(end)
 
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
             throw new Error(startDate, endDate);

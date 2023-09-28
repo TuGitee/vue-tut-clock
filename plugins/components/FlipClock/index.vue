@@ -219,7 +219,7 @@ export default {
             }
         },
         setTime() {
-            this.date = this.deadline ? new Date(this.deadline) : new Date()
+            this.date = this.deadline ? new Date(this.deadline.includes('T') ? this.deadline : this.deadline.replace(/-/g, '/')) : new Date()
         },
         handlerDeadline() {
             if (this.active) return;
@@ -257,7 +257,7 @@ export default {
                     this.clockSize = `50px`
                     break
                 case 'screen':
-                    this.clockSize = `max(${100 / (this.formatter.length )}vw,${100 / (this.formatter.length )}vmin)`
+                    this.clockSize = `max(${100 / (this.formatter.length)}vw,${100 / (this.formatter.length)}vmin)`
                     break
                 case 'fit':
                     this.$nextTick(() => {
