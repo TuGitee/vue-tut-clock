@@ -36,7 +36,7 @@ $ npm i vue-tut-clock
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vue-tut-clock</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-tut-clock@0.1.16/lib/vue-tut-clock.umd.min.js"></script>
+    <script src="https://unpkg.com/vue-tut-clock"></script>
 </head>
 
 <body>
@@ -68,7 +68,7 @@ Vue.use(VueTutClock)
 
 ```vue
 <template>
-	<FlipClock></FlipClock>
+	<flip-clock></flip-clock>
 </template>
 ```
 
@@ -99,27 +99,27 @@ Vue.use(VueTutClock)
 ```vue
 <!-- GMT-4时区 -->
 <template>
-	<FlipClock formatter="HH时II分SS秒"
+	<flip-clock formatter="HH时II分SS秒"
 				size="fit"
 				center
 				:GMT="-4">
-	</FlipClock>
+	</flip-clock>
 </template>
 
 <!-- 倒计时模式 -->
 <template>
-	<FlipClock deadline="2023-11-27"
+	<flip-clock deadline="2023-11-27"
 				@handlerDeadline="handlerDeadline"
 				formatter="DD天 hh:ii:ss"
 				event="CVPR截稿">
-	</FlipClock>
+	</flip-clock>
 </template>
 
 <!-- 配合input框修改deadline -->
 <template>
 	<div>
 		<input type="datetime-local" v-model="time" />
-		<FlipClock :deadline="time" formatter="DD天 hh:ii:ss"></FlipClock>
+		<flip-clock :deadline="time" formatter="DD天 hh:ii:ss"></flip-clock>
 	</div>
 </template>
 
@@ -145,7 +145,7 @@ export default {
 
 ```vue
 <template>
-	<FlipClock>
+	<flip-clock>
 		<!-- # 是 v-slot 的缩写形式 -->
 		<template #header>
 			<h1>China Clock</h1>
@@ -153,7 +153,7 @@ export default {
 	  	<template #footer>
 			 	<p>时间仅供参考</p>
 	  	</template>
-	</FlipClock>
+	</flip-clock>
 	<!-- 倒计时模式插槽有默认值，重新书写插槽自行定义 -->
 </template>
 ```
@@ -163,14 +163,14 @@ export default {
 ```vue
 // 展示韩国时钟
 <template>
-	<FlipClock center :GMT="9">
+	<flip-clock center :GMT="9">
 		<template #header>
 		<h1>South Korea Clock</h1>
 	  	</template>
 	  	<template #footer>
 			 	<p>🕓 TIME 🕓</p>
 	  	</template>
-	</FlipClock>
+	</flip-clock>
 </template>
 ```
 
@@ -182,7 +182,7 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<CircleClock></CircleClock>
+	<circle-clock></circle-clock>
 </template>
 ```
 
@@ -202,7 +202,7 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<CircleClock size="fit" center :GMT="8" :step="true"></CircleClock>
+	<circle-clock size="fit" center :GMT="8" :step="true"></circle-clock>
 </template>
 ```
 
@@ -217,23 +217,23 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<CircleClock>
+	<circle-clock>
 		<template #header>
 			<h1>China Clock</h1>
 	  	</template>
 	  	<template #footer>
 			 	<p>时间仅供参考</p>
 	  	</template>
-	</CircleClock>
+	</circle-clock>
 </template>
 ```
 
 ### 时钟组
 
-时钟组的作用主要为换行显示。例如：你想要在页面中使用`FlipClock`组件同时开启center，多个`FlipClock`将重叠在一起（由于absolute定位），此时可以使用时钟组，将整个时钟组居中即可。
+时钟组的作用主要为换行显示。例如：你想要在页面中使用`flip-clock`组件同时开启center，多个`flip-clock`将重叠在一起（由于absolute定位），此时可以使用时钟组，将整个时钟组居中即可。
 
 ```vue
-<ClockGroup></ClockGroup>
+<clock-group></clock-group>
 ```
 
 #### 配置参数
@@ -254,7 +254,7 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<ClockGroup :config="config"></ClockGroup>
+	<clock-group :config="config"></clock-group>
 </template>
 
 <script>
@@ -297,7 +297,7 @@ export default {
 ```vue
 <template>
 	<!-- config 同上，有三个时钟，此处设置前两个时钟的插槽 -->
-	<ClockGroup :config="config">
+	<clock-group :config="config">
 		
 		<template #header>
 			<h2>Demo</h2>
@@ -317,7 +317,7 @@ export default {
 			<p>时间仅供参考</p>
 		</template>
 
-	</ClockGroup>
+	</clock-group>
 </template>
 ```
 
