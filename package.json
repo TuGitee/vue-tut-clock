@@ -1,6 +1,6 @@
 {
   "name": "vue-tut-clock",
-  "version": "0.1.17",
+  "version": "0.1.19",
   "private": false,
   "author": "_tut",
   "main": "lib/vue-tut-clock.umd.min.js",
@@ -12,7 +12,9 @@
     "翻页时钟",
     "时钟",
     "时间",
-    "vue2"
+    "time",
+    "vue2",
+    "vue-clock"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",

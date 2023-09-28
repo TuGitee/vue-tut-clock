@@ -5,60 +5,50 @@
       <h1>vue-tut-clock项目地址</h1>
     </a>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code1)"></code></pre>
+    <HighlightCode :code="code1"></HighlightCode>
 
-    <FlipClock ref="clock" theme="dark" size="screen" deadline="2023-11-10 0:0:0" @handlerDeadline="handlerDeadline"
+    <flip-clock ref="clock" theme="dark" size="screen" deadline="2023-11-10 0:0:0" @handlerDeadline="handlerDeadline"
       formatter="DD天 hh:ii:ss" event="CVPR截稿">
-    </FlipClock>
+    </flip-clock>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code2)"></code></pre>
+    <HighlightCode :code="code2"></HighlightCode>
 
     <p><time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time></p>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code3)"></code></pre>
+    <HighlightCode :code="code3"></HighlightCode>
 
     <p><button class="switch-btn" @click="$switchTheme()">主题切换</button></p>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code4)"></code></pre>
+    <HighlightCode :code="code4"></HighlightCode>
 
     <p style="margin: 0 auto;">
       <input type="datetime-local" v-model="time" style="margin: 20px auto;" />
-      <FlipClock ref="clock" style="min-height: 0;" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline"
+      <flip-clock ref="clock" style="min-height: 0;" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline"
         formatter="DD天 hh:ii:ss">
-      </FlipClock>
+      </flip-clock>
     </p>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code5)"></code></pre>
+    <HighlightCode :code="code5"></HighlightCode>
 
-
-    <CircleClock size="screen" :step="false">
+    <circle-clock size="screen" :step="false">
       <template #header>
         <h1>Circle Clock Demo</h1>
       </template>
-    </CircleClock>
+    </circle-clock>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code6)"></code></pre>
-
-
+    <HighlightCode :code="code6"></HighlightCode>
 
     <!-- 展示韩国时钟 -->
-    <FlipClock :GMT="9">
+    <flip-clock :GMT="9">
       <template #header>
         <h1>South Korea Clock Demo</h1>
       </template>
       <template #footer>
         <p>🕓 TIME 🕓</p>
       </template>
-    </FlipClock>
+    </flip-clock>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code7)"></code></pre>
+    <HighlightCode :code="code7"></HighlightCode>
 
 
 
@@ -87,17 +77,18 @@
 
     </ClockGroup>
 
-    <pre
-      class="highlight"><p style="margin-bottom: 5px;"><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FF5F5D;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #FEC048;margin-right: 5px;"></span><span style="display:inline-block;height: 10px;width: 10px;border-radius: 50%;background-color: #3AC44A;margin-right: 5px;"></span></p><code class="language-html" v-html="highlightedCode(code8)"></code></pre>
+    <HighlightCode :code="code8"></HighlightCode>
     <p><time datetime="2023-1-7 12:03:22" v-time="date"></time></p>
   </div>
 </template>
 
 <script>
-import hljs from 'highlight.js'
-import "@/assets/highlight.css"
+import HighlightCode from './components/HighlightCode'
 export default {
   name: 'App',
+  components: {
+    HighlightCode
+  },
   data() {
     return {
       date: new Date(),
@@ -118,24 +109,24 @@ export default {
         }]
       },
       time: null,
-      code1: `<FlipClock ref="clock" theme="dark" size="screen" deadline="2023-11-10 0:0:0" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss" event="CVPR截稿"></FlipClock>`,
+      code1: `<flip-clock ref="clock" theme="dark" size="screen" deadline="2023-11-10 0:0:0" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss" event="CVPR截稿"></flip-clock>`,
       code2: `<time datetime="2023-1-7 12:03:22" v-time="Date('2023-1-7 12:03:22')"></time>`,
       code3: `<button class="switch-btn" @click="$switchTheme()">主题切换</button>`,
       code4: `<input type="datetime-local" v-model="time" />
-<FlipClock ref="clock" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"></FlipClock>`,
-      code5: `<CircleClock size="screen" :step="false">
+<flip-clock ref="clock" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"></flip-clock>`,
+      code5: `<circle-clock size="screen" :step="false">
   <template #header>
     <h1>Circle Clock Demo</h1>
   </template>
-</CircleClock>`,
-      code6: `<FlipClock :GMT="9">
+</circle-clock>`,
+      code6: `<flip-clock :GMT="9">
   <template #header>
     <h1>South Korea Clock Demo</h1>
   </template>
   <template #footer>
     <p>🕓 TIME 🕓</p>
   </template>
-</FlipClock>`,
+</flip-clock>`,
       code7: `<ClockGroup :config="config">
   <template #header>
     <h2>ClockGroup Demo</h2>
@@ -167,9 +158,6 @@ export default {
     handlerDeadline() {
 
     },
-    highlightedCode(str) {
-      return hljs.highlightAuto(str).value
-    }
   },
 }
 </script>

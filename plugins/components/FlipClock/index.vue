@@ -328,15 +328,15 @@ export default {
 <style scoped>
 @keyframes shake {
     0% {
-        transform: rotate(0.5deg);
+        transform: rotate(1deg);
     }
 
     50% {
-        transform: rotate(-0.5deg);
+        transform: rotate(-1deg);
     }
 
     100% {
-        transform: rotate(0.5deg) scale(1.01);
+        transform: rotate(1deg) scale(1.02);
     }
 }
 
@@ -413,6 +413,7 @@ export default {
     font-weight: bold;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    transform-style: preserve-3d;
 }
 
 .flip .digital:before,
@@ -539,11 +540,16 @@ export default {
 .flip.down.go .front:before {
     transform-origin: 50% 100%;
     animation: frontFlipDown 0.6s ease-in-out both;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    /* ? */
 }
 
 .flip.down.go .back:after {
     animation: backFlipDown 0.6s ease-in-out both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* ?? */
 }
 
 .flip.down.go .front:after {
@@ -557,19 +563,19 @@ export default {
 @keyframes frontFlipDown {
     0% {
         filter: brightness(1);
-        transform: perspective(calc(var(--size)*1.5)) rotateX(0deg);
+        transform: perspective(calc(var(--size)*1.5)) rotateX(0deg) translateZ(0.1px);
     }
 
     100% {
         filter: brightness(.1);
-        transform: perspective(calc(var(--size)*1.5)) rotateX(-180deg);
+        transform: perspective(calc(var(--size)*1.5)) rotateX(-180deg) translateZ(0.3px);
     }
 }
 
 @keyframes backFlipDown {
     0% {
         filter: brightness(.1);
-        transform: perspective(calc(var(--size)*1.5)) rotateX(180deg);
+        transform: perspective(calc(var(--size)*1.5)) rotateX(180deg) translateZ(0.3px);
     }
 
     50% {
@@ -578,7 +584,7 @@ export default {
 
     100% {
         filter: brightness(1);
-        transform: perspective(calc(var(--size)*1.5)) rotateX(0deg);
+        transform: perspective(calc(var(--size)*1.5)) rotateX(0deg) translateZ(0.1px);
     }
 }
 
@@ -605,6 +611,7 @@ export default {
 .flip.up.go .front:after {
     transform-origin: 50% 0;
     animation: frontFlipUp 0.6s ease-in-out both;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
