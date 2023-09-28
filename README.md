@@ -1,6 +1,6 @@
-# :timer_clock: tut-flip-clock
+# :timer_clock: vue-tut-clock
 
-[![npm](https://img.shields.io/npm/v/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock) [![npm](https://img.shields.io/npm/dt/tut-flip-clock.svg)](https://www.npmjs.com/package/tut-flip-clock) ![Version](https://img.shields.io/github/package-json/version/TuGitee/tut-flip-clock) ![stars](https://img.shields.io/github/stars/TuGitee/tut-flip-clock) ![forks](https://img.shields.io/github/forks/TuGitee/tut-flip-clock) ![last commit](https://img.shields.io/github/last-commit/TuGitee/tut-flip-clock) ![views](https://komarev.com/ghpvc/?username=TuGitee&label=Views&color=0e75b6&style=flat) ![language](https://img.shields.io/github/languages/top/TuGitee/tut-flip-clock) ![license](https://img.shields.io/github/license/TuGitee/tut-flip-clock)
+[![npm](https://img.shields.io/npm/v/vue-tut-clock.svg)](https://www.npmjs.com/package/vue-tut-clock) [![npm](https://img.shields.io/npm/dt/vue-tut-clock.svg)](https://www.npmjs.com/package/vue-tut-clock) ![Version](https://img.shields.io/github/package-json/version/TuGitee/vue-tut-clock) ![stars](https://img.shields.io/github/stars/TuGitee/vue-tut-clock) ![forks](https://img.shields.io/github/forks/TuGitee/vue-tut-clock) ![last commit](https://img.shields.io/github/last-commit/TuGitee/vue-tut-clock) ![views](https://komarev.com/ghpvc/?username=TuGitee&label=Views&color=0e75b6&style=flat) ![language](https://img.shields.io/github/languages/top/TuGitee/vue-tut-clock) ![license](https://img.shields.io/github/license/TuGitee/vue-tut-clock)
 
 :clock1: 这是一个翻页时钟，用于展示当前时间！适用于Vue 2 项目！
 
@@ -8,17 +8,17 @@
 
 使用NPM:
 ```shell
-$ npm install tut-flip-clock
+$ npm install vue-tut-clock
 or
-$ npm i tut-flip-clock
+$ npm i vue-tut-clock
 ```
 ## 完整引入
 
 ```js
 // main.js
 import Vue from 'vue'
-import TutFlipClock from 'tut-flip-clock';
-Vue.use(TutFlipClock)
+import VueTutClock from 'vue-tut-clock';
+Vue.use(VueTutClock)
 ```
 
 ## 使用
@@ -135,7 +135,7 @@ export default {
 
 ### 圆形时钟
 
-tut-flip-clock同时支持圆形时钟。
+vue-tut-clock同时支持圆形时钟。
 
 #### 基本用法
 
@@ -284,7 +284,7 @@ export default {
 
 #### 全局方法
 
-tut-flip-clock 为 Vue.prototype 添加了全局方法 `$time`。因此在 Vue Instance 中可以直接采用此方法格式化时间。
+vue-tut-clock 为 Vue.prototype 添加了全局方法 `$time`。因此在 Vue Instance 中可以直接采用此方法格式化时间。
 
 ##### 参数说明
 
@@ -312,13 +312,23 @@ export default {
 
 #### 自定义指令
 
-为便于使用，tut-flip-clock 注册了自定义指令 `v-time`。因此可以直接使用此指令达到格式化时间的效果。
+为便于使用，vue-tut-clock 注册了自定义指令 `v-time`。因此可以直接使用此指令达到格式化时间的效果。
 
 > :warning:v-time渲染时，dom元素中不能有任何子节点，用法与 `v-text` 以及 `v-html` 相似。
 >
-> 此指令设计存在缺陷，无法配置formatter，推荐使用全局方法代替此方法。
+> 此指令设计存在缺陷，无法单独配置formatter，推荐使用全局方法`$time`代替此方法。
 
-##### 示例
+可以在引入时配置全局格式化，格式与formatter相同。
+
+##### 引入示例
+
+```js
+import Vue from 'vue'
+import TutClipClock from 'tut-clip-clock'
+Vue.use(TutClipClock,'YYYY年MM月')
+```
+
+##### 使用示例
 
 ```vue
 <template>
@@ -330,7 +340,7 @@ export default {
 
 #### 全局方法
 
-tut-flip-clock 为 Vue.prototype 添加了全局方法 `$switchTheme`,可以直接采用此方法切换主题，使用`theme="auto"`的组件将会跟随主题颜色变化。
+vue-tut-clock 为 Vue.prototype 添加了全局方法 `$switchTheme`,可以直接采用此方法切换主题，使用`theme="auto"`的组件将会跟随主题颜色变化。
 
 | 方法名       | 参数 | 返回值   | 说明                                        |
 | ------------ | ---- | -------- | ------------------------------------------- |
@@ -386,12 +396,12 @@ export default {
 
 ## 体验网址
 
-[翻页时钟](https://tugitee.github.io/tut-flip-clock)
+[翻页时钟](https://tugitee.github.io/vue-tut-clock)
 
 ## 关于
 
 ### 开源协议
 
-Copyright © 2023 [tut-flip-clock](https://github.com/TuGitee/tut-flip-clock/blob/main/LICENSE) (MIT)
+Copyright © 2023 [vue-tut-clock](https://github.com/TuGitee/vue-tut-clock/blob/main/LICENSE) (MIT)
 
 > 如存在任何问题，请提交pr或联系作者[_tut](mailto:1137725646@qq.com)。

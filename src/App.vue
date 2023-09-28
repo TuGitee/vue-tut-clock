@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <FlipClock ref="clock" theme="dark" size="screen" deadline="2023-11-10" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"
+    <FlipClock ref="clock" theme="dark" size="screen" deadline="2023-11-10 0:00" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"
       event="CVPR截稿">
     </FlipClock>
 
@@ -59,7 +59,7 @@
 
     </ClockGroup>
 
-    <p><time datetime="2023-1-7 12:03:22">{{ $time(date, 'YYYY年MM月DD日') }}</time></p>
+    <p><time datetime="2023-1-7 12:03:22" v-time="date">{{ $time(date, 'YYYY年MM月DD日') }}</time></p>
   </div>
 </template>
 

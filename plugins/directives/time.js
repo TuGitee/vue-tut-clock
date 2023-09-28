@@ -1,7 +1,8 @@
 import { formatTime } from '../utils/time'
 
 export default {
-    install(Vue) {
+    install(Vue, options) {
+        console.log(options)
         Vue.directive('time', {
             bind(el, binding, vnode) {
                 if (typeof binding.value === 'number') {
@@ -10,9 +11,8 @@ export default {
                 if (vnode.children?.length) {
                     console.warn('v-time will override element children.')
                 }
-                el.innerText = formatTime(binding.value)
+                el.innerText = formatTime(binding.value,options)
             }
         })
-        Vue.prototype.$time = formatTime
     }
 }
