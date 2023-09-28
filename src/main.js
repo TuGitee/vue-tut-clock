@@ -5,7 +5,7 @@ Vue.config.productionTip = false
 
 // test env
 import plugins from '../plugins'
-Vue.use(plugins,'YYYY')
+Vue.use(plugins)
 
 // prod env
 // import TutClipClock from 'tut-clip-clock'

@@ -1,0 +1,206 @@
+.highlight {
+    margin: 10vmin auto;
+}
+
+pre code {
+    margin: 0;
+    padding: 0;
+    border: none;
+    display: block;
+    background: transparent;
+}
+
+pre {
+    background-color: #1a1a1a;
+    border: 1px solid #cccccc;
+    font-size: 13px;
+    line-height: 19px;
+    max-width: 80vmin;
+    width: fit-content;
+    overflow: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    text-align: left;
+    border-radius: 10px;
+    transition: all .2s;
+}
+
+pre:hover {
+    box-shadow: 0 0 10px #ccc;
+}
+
+pre code,
+pre tt {
+    background-color: transparent;
+    border: none;
+}
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+pre:has(>code.hljs) {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+    background-color: #eee;
+}
+
+pre code {
+    font-family: Consolas, Fira Mono, DejaVu Sans Mono, Menlo, Liberation Mono, Monaco;
+    border: none !important;
+}
+
+table {
+    margin: 0;
+}
+
+table td {
+    padding: 0 !important;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.hljs {
+    color: #c9d1d9;
+    background: #0d1117;
+    padding: 8px;
+    width: 100%;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+    /* prettylights-syntax-keyword */
+    color: #ff7b72;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+    /* prettylights-syntax-entity */
+    color: #d2a8ff;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+    /* prettylights-syntax-constant */
+    color: #79c0ff;
+}
+
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+    /* prettylights-syntax-string */
+    color: #a5d6ff;
+}
+
+.hljs-built_in,
+.hljs-symbol {
+    /* prettylights-syntax-variable */
+    color: #ffa657;
+}
+
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+    /* prettylights-syntax-comment */
+    color: #8b949e;
+}
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+    /* prettylights-syntax-entity-tag */
+    color: #7ee787;
+}
+
+.hljs-subst {
+    /* prettylights-syntax-storage-modifier-import */
+    color: #c9d1d9;
+}
+
+.hljs-section {
+    /* prettylights-syntax-markup-heading */
+    color: #1f6feb;
+    font-weight: bold;
+}
+
+.hljs-bullet {
+    /* prettylights-syntax-markup-list */
+    color: #f2cc60;
+}
+
+.hljs-emphasis {
+    /* prettylights-syntax-markup-italic */
+    color: #c9d1d9;
+    font-style: italic;
+}
+
+.hljs-strong {
+    /* prettylights-syntax-markup-bold */
+    color: #c9d1d9;
+    font-weight: bold;
+}
+
+.hljs-addition {
+    /* prettylights-syntax-markup-inserted */
+    color: #aff5b4;
+    background-color: #033a16;
+}
+
+.hljs-deletion {
+    /* prettylights-syntax-markup-deleted */
+    color: #ffdcd7;
+    background-color: #67060c;
+}
+
+/* for block of numbers */
+.hljs-ln-numbers {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    text-align: center;
+    color: #ccc;
+    vertical-align: top;
+    padding-right: 10px;
+
+    /* your custom style here */
+}
+
+.hljs-ln-n:before {
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+/* for block of code */
+.hljs-ln-code {
+    padding-left: 10px;
+}

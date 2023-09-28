@@ -6,12 +6,53 @@
 
 ## 安装
 
-使用NPM:
+### npm安装
+
+推荐使用 npm 的方式安装，它能更好地和 [webpack](https://webpack.js.org/) 打包工具配合使用。
+
 ```shell
 $ npm install vue-tut-clock
 or
 $ npm i vue-tut-clock
 ```
+### CDN
+
+目前可以通过 [unpkg.com/vue-tut-clock](https://unpkg.com/vue-tut-clock/) 获取到最新版本的资源，在页面上引入 js 文件即可开始使用。
+
+```html
+<script src="https://unpkg.com/vue-tut-clock"></script>
+```
+
+> 建议使用 CDN 引入vue-tut-clock的用户在链接地址上锁定版本，以免将来 vue-tut-clock 升级时受到非兼容性更新的影响。锁定版本的方法请查看 [unpkg.com](https://unpkg.com/)。
+
+#### Hello vue-tut-clock
+
+```html
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-tut-clock</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-tut-clock@0.1.16/lib/vue-tut-clock.umd.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <flip-clock size="screen"></flip-clock>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+
+</html>
+```
+
 ## 完整引入
 
 ```js
