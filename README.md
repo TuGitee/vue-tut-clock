@@ -68,7 +68,7 @@ Vue.use(VueTutClock)
 
 ```vue
 <template>
-	<flip-clock></flip-clock>
+    <flip-clock></flip-clock>
 </template>
 ```
 
@@ -99,37 +99,37 @@ Vue.use(VueTutClock)
 ```vue
 <!-- GMT-4时区 -->
 <template>
-	<flip-clock formatter="HH时II分SS秒"
-				size="fit"
-				center
-				:GMT="-4">
-	</flip-clock>
+    <flip-clock formatter="HH时II分SS秒"
+                size="fit"
+                center
+                :GMT="-4">
+    </flip-clock>
 </template>
 
 <!-- 倒计时模式 -->
 <template>
-	<flip-clock deadline="2023-11-27"
-				@handlerDeadline="handlerDeadline"
-				formatter="DD天 hh:ii:ss"
-				event="CVPR截稿">
-	</flip-clock>
+    <flip-clock deadline="2023-11-27"
+                @handlerDeadline="handlerDeadline"
+                formatter="DD天 hh:ii:ss"
+                event="CVPR截稿">
+    </flip-clock>
 </template>
 
 <!-- 配合input框修改deadline -->
 <template>
-	<div>
-		<input type="datetime-local" v-model="time" />
-		<flip-clock :deadline="time" formatter="DD天 hh:ii:ss"></flip-clock>
-	</div>
+    <div>
+        <input type="datetime-local" v-model="time" />
+        <flip-clock :deadline="time" formatter="DD天 hh:ii:ss"></flip-clock>
+    </div>
 </template>
 
 <script>
 export default {
-	data(){
-		return {
-			time: null
-		}
-	}
+    data(){
+        return {
+            time: null
+        }
+    }
 }
 </script>
 ```
@@ -145,16 +145,16 @@ export default {
 
 ```vue
 <template>
-	<flip-clock>
-		<!-- # 是 v-slot 的缩写形式 -->
-		<template #header>
-			<h1>China Clock</h1>
-	  	</template>
-	  	<template #footer>
-			 	<p>时间仅供参考</p>
-	  	</template>
-	</flip-clock>
-	<!-- 倒计时模式插槽有默认值，重新书写插槽自行定义 -->
+    <flip-clock>
+        <!-- # 是 v-slot 的缩写形式 -->
+        <template #header>
+            <h1>China Clock</h1>
+        </template>
+        <template #footer>
+            <p>时间仅供参考</p>
+        </template>
+    </flip-clock>
+    <!-- 倒计时模式插槽有默认值，重新书写插槽自行定义 -->
 </template>
 ```
 
@@ -163,14 +163,14 @@ export default {
 ```vue
 // 展示韩国时钟
 <template>
-	<flip-clock center :GMT="9">
-		<template #header>
-		<h1>South Korea Clock</h1>
-	  	</template>
-	  	<template #footer>
-			 	<p>🕓 TIME 🕓</p>
-	  	</template>
-	</flip-clock>
+    <flip-clock center :GMT="9">
+        <template #header>
+            <h1>South Korea Clock</h1>
+        </template>
+        <template #footer>
+            <p>🕓 TIME 🕓</p>
+        </template>
+    </flip-clock>
 </template>
 ```
 
@@ -182,7 +182,7 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<circle-clock></circle-clock>
+    <circle-clock></circle-clock>
 </template>
 ```
 
@@ -202,7 +202,7 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<circle-clock size="fit" center :GMT="8" :step="true"></circle-clock>
+    <circle-clock size="fit" center :GMT="8" :step="true"></circle-clock>
 </template>
 ```
 
@@ -217,14 +217,14 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<circle-clock>
-		<template #header>
-			<h1>China Clock</h1>
-	  	</template>
-	  	<template #footer>
-			 	<p>时间仅供参考</p>
-	  	</template>
-	</circle-clock>
+    <circle-clock>
+        <template #header>
+            <h1>China Clock</h1>
+        </template>
+        <template #footer>
+            <p>时间仅供参考</p>
+        </template>
+    </circle-clock>
 </template>
 ```
 
@@ -254,31 +254,31 @@ vue-tut-clock同时支持圆形时钟。
 
 ```vue
 <template>
-	<clock-group :config="config"></clock-group>
+    <clock-group :config="config"></clock-group>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			config: {
-				center: false,
-				gap: 20,
-				swiper: true,
-				clocks: [{
-		  			formatter: 'YYYY-MM-DD',
-		  			theme: 'light',
-		  			size: 'small'
-				}, {
-		  			formatter: 'HH:II:SS',
-		  			size: 'fit'
-				}, {
-		  			type: 'circle',
-		  			step: false
-				}]
-	  		}
-		}
-	}
+    data() {
+        return {
+            config: {
+                center: false,
+                gap: 20,
+                swiper: true,
+                clocks: [{
+                      formatter: 'YYYY-MM-DD',
+                      theme: 'light',
+                      size: 'small'
+                }, {
+                      formatter: 'HH:II:SS',
+                      size: 'fit'
+                }, {
+                      type: 'circle',
+                      step: false
+                }]
+              }
+        }
+    }
 }
 </script>
 ```
@@ -296,28 +296,28 @@ export default {
 
 ```vue
 <template>
-	<!-- config 同上，有三个时钟，此处设置前两个时钟的插槽 -->
-	<clock-group :config="config">
-		
-		<template #header>
-			<h2>Demo</h2>
-		</template>
-	  
-		<template #header:0>
-			<h3>年/月/日</h3>
-		</template>
-		<template #footer:0>
-			<p>日期仅供参考</p>
-		</template>
+    <!-- config 同上，有三个时钟，此处设置前两个时钟的插槽 -->
+    <clock-group :config="config">
+        
+        <template #header>
+            <h2>Demo</h2>
+        </template>
+      
+        <template #header:0>
+            <h3>年/月/日</h3>
+        </template>
+        <template #footer:0>
+            <p>日期仅供参考</p>
+        </template>
 
-		<template #header:1>
-			<h3>时/分/秒</h3>
-		</template>
-		<template #footer:1>
-			<p>时间仅供参考</p>
-		</template>
+        <template #header:1>
+            <h3>时/分/秒</h3>
+        </template>
+        <template #footer:1>
+            <p>时间仅供参考</p>
+        </template>
 
-	</clock-group>
+    </clock-group>
 </template>
 ```
 
@@ -339,14 +339,14 @@ vue-tut-clock 为 Vue.prototype 添加了全局方法 `$time`。因此在 Vue In
 
 ```vue
 <template>
-	<time> {{ $time('2023-9-25','YYYY年MM月DD日') }} </time>
+    <time> {{ $time('2023-9-25','YYYY年MM月DD日') }} </time>
 </template>
 
 <script>
 export default {
-	mounted(){
-		this.$time('2023-9-26 1:16','YYYY年MM月DD日 hh:ii')
-	}
+    mounted(){
+        this.$time('2023-9-26 1:16','YYYY年MM月DD日 hh:ii')
+    }
 }
 </script>
 ```
@@ -373,7 +373,7 @@ Vue.use(TutClipClock,'YYYY年MM月')
 
 ```vue
 <template>
-	 <time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time>
+     <time datetime="2023-1-7 12:03:22" v-time="'2023-1-7 12:03:22'"></time>
 </template>
 ```
 
@@ -391,14 +391,14 @@ vue-tut-clock 为 Vue.prototype 添加了全局方法 `$switchTheme`,可以直�
 
 ```vue
 <template>
-	<button class="switch-btn" @click="$switchTheme()">主题切换</button>
+    <button class="switch-btn" @click="$switchTheme()">主题切换</button>
 </template>
 
 <script>
 export default {
-	mounted(){
-		let theme = this.$switchTheme()
-	}
+    mounted(){
+        let theme = this.$switchTheme()
+    }
 }
 </script>
 ```
@@ -412,13 +412,13 @@ export default {
 <style scoped>
 /* .box 即选择器 设置默认颜色（浅色模式颜色） */
 .box {
-	--color: #888;
-	--text: #111;  
+    --color: #888;
+    --text: #111;  
 }
 /* 加前缀[data-theme="dark"]指定深色模式下的颜色 */
 [data-theme="dark"] .box {
-	--color: #888;
-	--text: #111;
+    --color: #888;
+    --text: #111;
 }
 </style>
 ```
@@ -428,16 +428,24 @@ export default {
 ```vue
 // App.vue
 <style scoped>
+:root {
+    /* 开启浅色模式，或配合媒体查询（prefers-color-scheme） */
+    color-scheme: light;
+    /* TODO: 你的自定义主题变量 */
+    --color: #111;
+}
 :root[data-theme="dark"] {
-	color-scheme: dark;
-	--color: #888;
+    /* 开启深色模式，或配合媒体查询（prefers-color-scheme） */
+    color-scheme: dark;
+    /* TODO: 你的自定义主题变量 */
+    --color: #888;
 }
 </style>
 ```
 
 ## 体验网址
 
-[翻页时钟](https://tugitee.github.io/vue-tut-clock)
+[vue-tut-clock 时钟](https://tugitee.github.io/vue-tut-clock)
 
 ## 关于
 
