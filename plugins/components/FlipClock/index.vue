@@ -242,7 +242,7 @@ export default {
                     })
                     break
                 default:
-                    if (this.size.includes('%'))
+                    if (this.size.toString().includes('%'))
                         this.clockSize = `${this.size}`
                     else
                         this.clockSize = `${this.size}px`

@@ -228,6 +228,57 @@ vue-tut-clock同时支持圆形时钟。
 </template>
 ```
 
+### 数字时钟
+
+vue-tut-clock还支持另类的数字时钟。
+
+#### 基本用法
+
+```vue
+<template>
+    <digit-clock></digit-clock>
+</template>
+```
+
+#### 配置参数
+
+| 名称    | 类型           | 默认         | 说明                                                         |
+| ------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GMT     | Number         | 当前所在时区 | 取值范围在-12至12之间                                        |
+| size    | Number\|String | fit          | 数字时钟大小，可选值为large（大号），middle（中号），small（小号），fit（适应容器大小），screen（适应屏幕大小），任意数值（单位px），百分比，:warning:该属性最小值为240px |
+| center  | Boolean        | false        | 使用absolute定位居中，推荐页面中只有此组件为主题内容时配置   |
+| offsetX | Number         | 0            | X轴偏移量，单位px                                            |
+| offsetY | Number         | 0            | Y轴偏移量，单位px                                            |
+| theme   | String         | auto         | 数字时钟主题，可选值为dark，light，auto以及任意其他rgba形式或单词形式的颜色，auto模式为适应当前浏览器深色或浅色模式，使用auto模式颜色会根据html根结点自定义属性[data-theme="dark"]或[data-theme="light"]进行自动切换 |
+| dot     | Boolean        | false        | 将背景数字改为圆点                                           |
+
+##### 示例
+
+```vue
+<template>
+    <digit-clock size="60%" :dot="true"></digit-clock>
+</template>
+```
+
+#### 插槽
+
+| 插槽名 | 说明         |
+| ------ | ------------ |
+| header | 时钟顶部内容 |
+| footer | 时钟底部内容 |
+
+##### 示例
+
+```vue
+<template>
+    <digit-clock>
+        <template #header>
+            <h1>Digit Clock</h1>
+        </template>
+    </digit-clock>
+</template>
+```
+
 ### 时钟组
 
 时钟组的作用主要为换行显示。例如：你想要在页面中使用`flip-clock`组件同时开启center，多个`flip-clock`将重叠在一起（由于absolute定位），此时可以使用时钟组，将整个时钟组居中即可。

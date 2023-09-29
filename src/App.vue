@@ -39,9 +39,6 @@
 
     <HighlightCode :code="code6"></HighlightCode>
 
-    
-    <DigitClock class="digit-clock"></DigitClock>
-
     <!-- 展示韩国时钟 -->
     <flip-clock :GMT="9">
       <template #header>
@@ -83,6 +80,10 @@
 
     <HighlightCode :code="code8"></HighlightCode>
     <p><time datetime="2023-1-7 12:03:22" v-time="date"></time></p>
+
+    <HighlightCode :code="code9"></HighlightCode>
+
+    <digit-clock class="digit-clock" size="60%" :dot="false"></digit-clock>
   </div>
 </template>
 
@@ -155,7 +156,8 @@ export default {
   </template>
 
 </ClockGroup>`,
-      code8: `<time datetime="2023-1-7 12:03:22" v-time="date"></time>`
+      code8: `<time datetime="2023-1-7 12:03:22" v-time="date"></time>`,
+      code9: `<digit-clock class="digit-clock"></digit-clock>`
     }
   },
   methods: {
@@ -192,7 +194,4 @@ p {
   --color: #ffff80;
 }
 
-.digit-clock {
-  margin: 100px auto;
-}
 </style>

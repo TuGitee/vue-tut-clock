@@ -63,14 +63,10 @@ export default {
                 return val <= 12 && val >= -12
             }
         },
-        change: {
-            type: Boolean,
-            default: false,
-        },
         step: {
             type: Boolean,
             default: true,
-        }
+        },
     },
     data() {
         return {
@@ -126,7 +122,7 @@ export default {
                     })
                     break
                 default:
-                    if (this.size.includes('%'))
+                    if (this.size.toString().includes('%'))
                         this.clockSize = `${this.size}`
                     else
                         this.clockSize = `${this.size}px`
