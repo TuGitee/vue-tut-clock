@@ -18,7 +18,7 @@ pre {
     max-width: 80vmin;
     width: fit-content;
     overflow: auto;
-    padding: 20px;
+    padding: 15px 20px;
     box-sizing: border-box;
     border-radius: 3px;
     text-align: left;

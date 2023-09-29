@@ -3,7 +3,7 @@
         transform: `translate(${offsetX}px,${offsetY}px)`,
         '-webkit-transform': `translate(${offsetX}px,${offsetY}px)`,
         '-moz-transform': `translate(${offsetX}px,${offsetY}px)`,
-        '--size': clockSize
+        '--size': clockSize,
     }, clockTheme]">
         <slot name="header">
         </slot>
@@ -14,7 +14,7 @@
             <div class="min" :style="{
                 transform: `rotate(${ii}deg)`
             }"></div>
-            <div class="sec" :style="{
+            <div class="sec" :class="{ linear: !step && ss }" :style="{
                 transform: `rotate(${ss}deg)`
             }"></div>
         </div>
@@ -24,8 +24,11 @@
 </template>
 
 <script>
+import time from '../../mixin/time'
+const perHour = 3600000
 export default {
     name: "CircleClock",
+    mixins: [time],
     props: {
         size: {
             type: String | Number,
@@ -71,21 +74,18 @@ export default {
     },
     data() {
         return {
-            currentTheme: localStorage.getItem('theme') ?? 'light',
-            date: this.step ? new Date() : Date.now(),
-            timer: null,
             clockSize: null
         }
     },
     computed: {
         hh() {
-            return ((new Date(this.date)).getTime() % (1000 * 60 * 60 * 24) / (1000 * 60 * 60) - new Date().getTimezoneOffset() / 60) * (360 / 12)
+            return (this.formatCurrentTime.getTime() % (1000 * 60 * 60 * 24) / (1000 * 60 * 60) - this.formatCurrentTime.getTimezoneOffset() / 60) * (360 / 12)
         },
         ii() {
-            return this.step ? this.date.getMinutes() * 6 : this.date % (1000 * 60 * 60) / (1000 * 60) * (360 / 60)
+            return this.formatCurrentTime.getTime() % (1000 * 60 * 60) / (1000 * 60) * (360 / 60)
         },
         ss() {
-            return this.step ? this.date.getSeconds() * 6 : this.date % (1000 * 60) / 1000 * (360 / 60)
+            return Math.round(this.formatCurrentTime.getTime() % (1000 * 60) / 1000 * (360 / 60))
         },
         clockTheme() {
             const style = {}
@@ -100,14 +100,11 @@ export default {
             }
             return style
         },
-        offset() {
-            return new Date().getTimezoneOffset() / 60 + this.GMT
+        formatCurrentTime() {
+            return this.GMT ? new Date((this.currentTime.getTimezoneOffset() / 60 + this.GMT) * perHour + this.currentTime.getTime()) : this.currentTime
         }
     },
     methods: {
-        getDate() {
-            this.date = this.step ? new Date(new Date().getTime() + this.offset * 3600000) : Date.now() + this.offset * 3600000
-        },
         fitSize() {
             switch (this.size) {
                 case 'large':
@@ -137,20 +134,20 @@ export default {
         }
     },
     mounted() {
-        this.getDate()
-        this.timer = setInterval(this.getDate, this.step ? 1000 : 1000 / (360 / 6));
         this.fitSize()
         window.addEventListener('resize', this.fitSize)
     },
     beforeDestroy() {
-        clearInterval(this.timer)
-        this.timer = null
         window.removeEventListener('resize', this.fitSize)
     },
 }
 </script>
 
 <style scoped>
+.linear {
+    transition: all 1s linear;
+}
+
 .clock-box {
     margin: 0;
     display: flex;

@@ -13,7 +13,7 @@
             'flex-wrap': wrap ? 'wrap' : 'nowrap'
         }">
             <div class="contents" v-for="i in formatter">
-                <div class="flip down" v-if="isKey(i)">
+                <div class="flip down" v-if="isKey(i)" ref="flip">
                     <div class="digital front number0"></div>
                     <div class="digital back number1"></div>
                 </div>
@@ -29,8 +29,11 @@
 
 <script>
 import { getTimeGap } from '../../utils/time'
+import time from '../../mixin/time'
+const perHour = 3600000
 export default {
     name: 'FlipClock',
+    mixins: [time],
     props: {
         formatter: {
             type: String,
@@ -93,18 +96,14 @@ export default {
     },
     data() {
         return {
-            timer: null,
-            date: null,
             active: false,
             pre: {
                 nowTimeStr: '',
                 nextTimeStr: ''
             },
-            clockSize: null
+            clockSize: null,
+            flipObjs: []
         }
-    },
-    beforeMount() {
-        this.setTime()
     },
     mounted() {
         function Flipper(config) {
@@ -165,45 +164,25 @@ export default {
             }
         }
 
-        const clock = this.$refs.clock
-        const flips = clock.querySelectorAll('.flip')
+        const flips = this.$refs.flip
         const { nowTimeStr, nextTimeStr } = this.getTime()
         this.pre.nowTimeStr = nowTimeStr
         this.pre.nextTimeStr = nextTimeStr
 
-        let flipObjs = []
-
         for (let i = 0; i < flips.length; i++) {
-            flipObjs.push(new Flipper({
+            this.flipObjs.push(new Flipper({
                 node: flips[i],
                 frontText: 'number' + nowTimeStr[i],
                 backText: 'number' + nextTimeStr[i]
             }))
         }
 
-        this.timer = setInterval(() => {
-            this.setTime()
-            const { nowTimeStr, nextTimeStr } = this.getTime()
-            for (let i = 0; i < flipObjs.length; i++) {
-                if ((this.pre.nowTimeStr[i] === nowTimeStr[i] || this.pre.nextTimeStr[i] === nextTimeStr[i]) && nowTimeStr[i] === nextTimeStr[i]) {
-                    continue
-                }
-                this.deadline ?
-                    flipObjs[i].flipDown('number' + nowTimeStr[i], 'number' + nextTimeStr[i]) :
-                    flipObjs[i].flipDown('number' + nowTimeStr[i], 'number' + nextTimeStr[i])
-            }
-            this.pre.nowTimeStr = nowTimeStr
-            this.pre.nextTimeStr = nextTimeStr
-        }, 1000)
-
         this.fitSize()
         window.addEventListener('resize', this.fitSize)
 
     },
     beforeDestroy() {
-        clearInterval(this.timer)
         window.removeEventListener('resize', this.fitSize)
-        this.timer = null
     },
     methods: {
         getTimeGap,
@@ -211,15 +190,12 @@ export default {
             return 'YyMmDdHhIiSs'.includes(str)
         },
         getTime() {
-            const nowTimeStr = this.deadline ? this.getTimeGap(this.curDate, this.showFormatter) : this.$time(this.curDate, this.showFormatter)
-            const nextTimeStr = this.deadline ? this.getTimeGap(new Date(this.curDate - 1000), this.showFormatter) : this.$time(new Date(this.curDate.getTime() + 1000), this.showFormatter)
+            const nowTimeStr = this.deadline ? this.getTimeGap(this.formatedTime, this.showFormatter, this.currentTime) : this.$time(this.formatedTime, this.showFormatter)
+            const nextTimeStr = this.deadline ? this.getTimeGap(new Date(this.formatedTime - 1000), this.showFormatter, this.currentTime) : this.$time(new Date(this.formatedTime.getTime() + 1000), this.showFormatter)
             return {
                 nowTimeStr,
                 nextTimeStr
             }
-        },
-        setTime() {
-            this.date = this.deadline ? new Date(this.deadline.includes('T') ? this.deadline : this.deadline.replace(/-/g, '/')) : new Date()
         },
         handlerDeadline() {
             if (this.active) return;
@@ -274,6 +250,9 @@ export default {
         }
     },
     computed: {
+        date() {
+            return this.deadline ? new Date(this.deadline.includes('T') ? this.deadline : this.deadline.replace(/-/g, '/')) : this.currentTime
+        },
         showFormatter() {
             return Array.from(this.formatter).filter(item => this.isKey(item)).join('')
         },
@@ -296,14 +275,11 @@ export default {
             }
             return style
         },
-        offset() {
-            return new Date().getTimezoneOffset() / 60 + this.GMT
-        },
-        curDate() {
-            return new Date(this.date.getTime() + this.offset * 3600000)
+        formatedTime() {
+            return this.GMT ? new Date((this.date.getTimezoneOffset() / 60 + this.GMT) * perHour + this.date.getTime()) : this.date
         },
         isMiss() {
-            return this.deadline ? Math.floor((new Date() - this.date) / 1000 + 2) : null
+            return this.deadline ? Math.floor((this.currentTime - this.date) / 1000 + 2) : null
         },
         missMessage() {
             return this.isMiss > 0 ? `<em>${this.event}</em> 距今已过` : this.isMiss == 0 ? `<em>${this.event}</em> 就是现在` : `距离 <em>${this.event}</em> 还有`
@@ -318,8 +294,19 @@ export default {
                 }
             }
         },
-        deadline() {
-            this.setTime()
+        currentTime() {
+            const { nowTimeStr, nextTimeStr } = this.getTime()
+            for (let i = 0; i < this.flipObjs.length; i++) {
+                if ((this.pre.nowTimeStr[i] === nowTimeStr[i] || this.pre.nextTimeStr[i] === nextTimeStr[i]) && nowTimeStr[i] === nextTimeStr[i]) {
+                    continue
+                }
+                // 人为修正1s的偏差
+                setTimeout(() => {
+                    this.flipObjs[i].flipDown('number' + nowTimeStr[i], 'number' + nextTimeStr[i])
+                }, 1000)
+            }
+            this.pre.nowTimeStr = nowTimeStr
+            this.pre.nextTimeStr = nextTimeStr
         }
     }
 }

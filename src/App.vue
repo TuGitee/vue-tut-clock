@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <a style="display: block;width: fit-content; color:var(--color); text-decoration: none;margin: 60px auto;"
       href="https://github.com/TuGitee/vue-tut-clock">
       <h1>vue-tut-clock项目地址</h1>
@@ -30,13 +31,16 @@
 
     <HighlightCode :code="code5"></HighlightCode>
 
-    <circle-clock size="screen" :step="false">
+    <circle-clock size="screen" :step="true">
       <template #header>
         <h1>Circle Clock Demo</h1>
       </template>
     </circle-clock>
 
     <HighlightCode :code="code6"></HighlightCode>
+
+    
+    <DigitClock class="digit-clock"></DigitClock>
 
     <!-- 展示韩国时钟 -->
     <flip-clock :GMT="9">
@@ -186,5 +190,9 @@ p {
 :root[data-theme="dark"] {
   color-scheme: dark;
   --color: #ffff80;
+}
+
+.digit-clock {
+  margin: 100px auto;
 }
 </style>
