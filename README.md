@@ -2,7 +2,11 @@
 
 [![npm](https://img.shields.io/npm/v/vue-tut-clock.svg)](https://www.npmjs.com/package/vue-tut-clock) [![npm](https://img.shields.io/npm/dt/vue-tut-clock.svg)](https://www.npmjs.com/package/vue-tut-clock) ![Version](https://img.shields.io/github/package-json/version/TuGitee/vue-tut-clock) ![stars](https://img.shields.io/github/stars/TuGitee/vue-tut-clock) ![forks](https://img.shields.io/github/forks/TuGitee/vue-tut-clock) ![last commit](https://img.shields.io/github/last-commit/TuGitee/vue-tut-clock) ![views](https://komarev.com/ghpvc/?username=TuGitee&label=Views&color=0e75b6&style=flat) ![language](https://img.shields.io/github/languages/top/TuGitee/vue-tut-clock) ![license](https://img.shields.io/github/license/TuGitee/vue-tut-clock)
 
-:clock1: 这是一个翻页时钟，用于展示当前时间！适用于Vue 2 项目！
+:clock1: 这是一个时钟插件，用于展示当前时间或倒计时！适用于Vue 2 项目！
+
+## 在线体验网址
+
+[vue-tut-clock 时钟](https://tugitee.github.io/vue-tut-clock)
 
 ## 安装
 
@@ -493,10 +497,6 @@ export default {
 }
 </style>
 ```
-
-## 体验网址
-
-[vue-tut-clock 时钟](https://tugitee.github.io/vue-tut-clock)
 
 ## 关于
 

@@ -214,12 +214,28 @@ p {
 
 :root {
   --color: #ff6969;
+  --bg: #fff;
   color-scheme: light;
+  background-color: var(--bg);
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
+  --bg: #111;
   --color: #ffff80;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --color: #ffff80;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color: #ff6969;
+    --bg: #fff;
+  }
+}
 </style>
