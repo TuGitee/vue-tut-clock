@@ -299,7 +299,7 @@ vue-tut-clock还支持另类的数字时钟。
 | vertical   | Boolean       | false                                                        | 时钟组轮播方式是否垂直                                       |
 | autoplay   | Boolean       | false                                                        | 轮播模式下是否开启自动轮播                                   |
 | duration   | Number        | 5000                                                         | 自动轮播时间（单位：毫秒ms）                                 |
-| clocks     | Array         | [{ formatter: 'YYYY-MM-DD'},{formatter: 'hh:ii:ss'}]         | 配置时钟对象，可指定每个时钟类型type，默认为flip，可选值为flip或circle；每个时钟的配置参数与对应Clock配置参数相似，但不可配置center属性，默认值与之相同 |
+| clocks     | Array         | [{ formatter: 'YYYY-MM-DD'},{formatter: 'hh:ii:ss'}]         | 配置时钟对象，可指定每个时钟类型type，默认为flip，可选值为flip，circle或digit；每个时钟的配置参数与对应Clock配置参数相似，但不可配置center属性，默认值与之相同 |
 
 #### 示例
 

@@ -211,7 +211,7 @@ export default {
 }
 
 .block.second {
-    font-weight: bold;
+    font-weight: 700;
     color: #FF8300;
 }
 
@@ -222,7 +222,4 @@ export default {
     height: fit-content;
 }
 
-.block.active.dot:not(.second) {
-    font-weight: bolder;
-}
 </style>

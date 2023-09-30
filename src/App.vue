@@ -117,8 +117,12 @@ export default {
       code1: `<flip-clock ref="clock" theme="dark" size="screen" deadline="2023-11-10 0:0:0" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss" event="CVPR截稿"></flip-clock>`,
       code2: `<time datetime="2023-1-7 12:03:22" v-time="Date('2023-1-7 12:03:22')"></time>`,
       code3: `<button class="switch-btn" @click="$switchTheme()">主题切换</button>`,
-      code4: `<input type="datetime-local" v-model="time" />
-<flip-clock ref="clock" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"></flip-clock>`,
+      code4: `// template
+<input type="datetime-local" v-model="time" />
+<flip-clock ref="clock" theme="dark" :deadline="time" @handlerDeadline="handlerDeadline" formatter="DD天 hh:ii:ss"></flip-clock>
+
+// script -> data
+time: null`,
       code5: `<circle-clock size="screen" :step="false">
   <template #header>
     <h1>Circle Clock Demo</h1>
@@ -132,7 +136,8 @@ export default {
     <p>🕓 TIME 🕓</p>
   </template>
 </flip-clock>`,
-      code7: `<ClockGroup :config="config">
+      code7: `// template
+<ClockGroup :config="config">
   <template #header>
     <h2>ClockGroup Demo</h2>
   </template>
@@ -155,9 +160,32 @@ export default {
     <h3>时钟</h3>
   </template>
 
-</ClockGroup>`,
-      code8: `<time datetime="2023-1-7 12:03:22" v-time="date"></time>`,
-      code9: `<digit-clock class="digit-clock"></digit-clock>`
+</ClockGroup>
+
+// script -> data
+config: {
+  center: false,
+  gap: 20,
+  swiper: true,
+  pagination: true,
+  clocks: [{
+    formatter: 'YYYY-MM-DD',
+    theme: 'light',
+    size: 'small'
+    }, {
+    formatter: 'HH:II:SS',
+    }, {
+    type: 'circle',
+    step: false
+  }]
+}
+`,
+      code8: `// template
+<time datetime="2023-1-7 12:03:22" v-time="date"></time>
+
+// script -> data
+date: new Date()`,
+      code9: `<digit-clock class="digit-clock" size="60%" :dot="false"></digit-clock>`
     }
   },
   methods: {

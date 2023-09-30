@@ -1,6 +1,6 @@
 {
   "name": "vue-tut-clock",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "private": false,
   "author": "_tut",
   "main": "lib/vue-tut-clock.umd.min.js",
